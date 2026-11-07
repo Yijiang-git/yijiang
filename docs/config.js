@@ -2,6 +2,6 @@
 window.YIJIANG_CONFIG = {
   owner: "Yijiang-git",
   repo: "yijiang",
-  version: "v0.2.0",
+  version: "v0.2.1",
   useGitHub: true
 };
