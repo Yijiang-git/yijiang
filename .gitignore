@@ -1,0 +1,34 @@
+# 安装包不进 Git
+*.exe
+*.zip
+*.apk
+*.dmg
+*.msi
+*.7z
+*.tar.gz
+!screenshots/*
+
+# 构建产物
+dist/
+build/
+build_installer/
+_internal/
+__pycache__/
+*.pyc
+*.spec.bak
+
+# 本地数据与密钥
+data/
+config.json
+*.db
+*.db-journal
+*.log
+.env
+
+# 设计稿与临时文件
+*.psd
+*.ai
+*.sketch
+.DS_Store
+Thumbs.db
+desktop.ini
