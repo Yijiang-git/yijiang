@@ -19,9 +19,9 @@
 
 | 平台 | 文件 | 说明 |
 |---|---|---|
-| Windows | `译匠-0.2.0-Setup.exe` | 安装版，可选目录 |
-| Windows | `译匠-0.2.0-免安装.zip` | 解压即用 |
-| Android | `译匠-0.2.0.apk` | 需允许未知来源 |
+| Windows | [`Yijiang-0.2.0-Setup.exe`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2.0/Yijiang-0.2.0-Setup.exe) | 安装版，可选目录 |
+| Windows | [`Yijiang-0.2.0-portable.zip`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2.0/Yijiang-0.2.0-portable.zip) | 解压即用 |
+| Android | [`Yijiang-0.2.0.apk`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2.0/Yijiang-0.2.0.apk) | 需允许未知来源 |
 
 校验和见 Release 页的 `SHA256SUMS.txt`。
 
