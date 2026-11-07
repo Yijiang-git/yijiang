@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>译匠 · 把你的翻译规矩，变成一套可以运行的知识库</title>
+<meta name="description" content="译匠是一个装在本机的英汉翻译工作台：252 条规则、24 个案例、114 条术语，全部在本地。免费测试版，Windows 与 Android 可直接下载。" />
+<meta name="theme-color" content="#08090c" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="译匠 · 把你的翻译规矩，变成一套可以运行的知识库" />
+<meta property="og:description" content="本机运行的英汉翻译工作台：252 条规则、24 个案例、114 条术语参与提示词。免费测试版，Windows 与 Android 可直接下载。" />
+<meta property="og:image" content="assets/desktop-main.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="译匠 · 本地翻译工作台" />
+<meta name="twitter:description" content="按你的规则与术语翻译，没有服务器，数据在本机。" />
+<meta name="twitter:image" content="assets/desktop-main.png" />
+<script src="config.js"></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d10'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23eef2f6' font-family='serif'%3E%E8%AF%91%3C/text%3E%3C/svg%3E" />
+<style>
+  :root{
+    --bg:#08090c; --bg2:#0c0f14; --ink:#eef2f6; --dim:#8c97a5; --faint:#5d6773;
+    --teal:#7fe3ff; --amber:#ffb15c; --line:rgba(255,255,255,.08);
+    --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",SimSun,Georgia,serif;
+    --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
+    --mono:Consolas,"SFMono-Regular",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.55;pointer-events:none}
+  .aurora{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(80px);opacity:.5}
+  .aurora i{position:absolute;display:block;border-radius:50%}
+  .a1{width:46vw;height:46vw;left:-8vw;top:-6vw;background:radial-gradient(circle,rgba(127,227,255,.20),transparent 65%);animation:drift1 26s ease-in-out infinite alternate}
+  .a2{width:40vw;height:40vw;right:-6vw;top:18vh;background:radial-gradient(circle,rgba(255,177,92,.14),transparent 65%);animation:drift2 32s ease-in-out infinite alternate}
+  .a3{width:52vw;height:52vw;left:22vw;bottom:-24vw;background:radial-gradient(circle,rgba(120,140,255,.12),transparent 65%);animation:drift1 38s ease-in-out infinite alternate-reverse}
+  @keyframes drift1{to{transform:translate3d(6vw,4vh,0) scale(1.12)}}
+  @keyframes drift2{to{transform:translate3d(-5vw,-3vh,0) scale(1.08)}}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 28px}
+
+  nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(8,9,12,.55);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:26px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:19px;letter-spacing:.12em}
+  .brand b{display:grid;place-items:center;width:30px;height:30px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:17px;color:var(--teal)}
+  nav .links{display:flex;gap:22px;margin-left:auto;font-size:13px;color:var(--dim)}
+  nav .links a:hover{color:var(--ink)}
+  nav .gh{font-size:12px;border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--dim)}
+  nav .gh:hover{color:var(--ink);border-color:rgba(255,255,255,.25)}
+
+  header{display:flex;align-items:center;padding:110px 0 70px;position:relative}
+  .hero{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:48px;align-items:center;width:100%;min-width:0}
+  .hero>div{min-width:0}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;color:var(--teal);opacity:.85}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.1vw,58px);line-height:1.28;margin:18px 0 0;letter-spacing:.02em;max-width:100%;overflow-wrap:anywhere}
+  h1 em{font-style:normal;color:var(--teal);text-shadow:0 0 38px rgba(127,227,255,.28)}
+  .lede{margin-top:22px;font-size:16.5px;line-height:1.95;color:var(--dim);max-width:36em;overflow-wrap:anywhere}
+  .lede b{color:var(--ink);font-weight:500}
+  .cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:12px;font-size:14px;border:1px solid var(--line);transition:.25s;background:rgba(255,255,255,.02)}
+  .btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.26);background:rgba(255,255,255,.05)}
+  .btn.primary{background:linear-gradient(135deg,rgba(127,227,255,.16),rgba(127,227,255,.04));border-color:rgba(127,227,255,.4);color:#dff8ff}
+  .btn small{display:block;color:var(--faint);font-size:10.5px;margin-top:2px}
+  .note{margin-top:18px;font-size:12px;color:var(--faint);font-family:var(--mono)}
+
+  .glyph{position:relative;display:grid;place-items:center;aspect-ratio:1;max-width:420px;margin-left:auto}
+  .glyph .ring{position:absolute;inset:6%;border:1px solid rgba(127,227,255,.18);border-radius:50%;animation:spin 26s linear infinite}
+  .glyph .ring:nth-child(2){inset:14%;border-color:rgba(255,177,92,.14);animation-duration:40s;animation-direction:reverse}
+  .glyph .ring:nth-child(3){inset:22%;border-style:dashed;border-color:rgba(255,255,255,.1);animation-duration:60s}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .glyph .zi{font-family:var(--serif);font-size:clamp(120px,16vw,210px);color:#f7f4ee;text-shadow:0 0 60px rgba(127,227,255,.22),0 0 120px rgba(127,227,255,.1);animation:breathe 6s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.92;transform:scale(1)}50%{opacity:1;transform:scale(1.02)}}
+  .glyph .cap{position:absolute;bottom:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;color:var(--faint);white-space:nowrap}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:20px 0 0}
+  .stat{background:rgba(10,12,16,.72);padding:26px 22px}
+  .stat b{display:block;font-family:var(--mono);font-size:34px;font-weight:500;color:var(--ink)}
+  .stat span{font-size:12px;color:var(--dim);letter-spacing:.06em}
+  .stat i{font-style:normal;color:var(--teal)}
+
+  section{padding:96px 0;position:relative}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:42px}
+  .sec-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,3.4vw,42px);margin:0}
+  .sec-head span{font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--teal);opacity:.8}
+  .sec-head p{color:var(--dim);font-size:14px;margin-left:auto;max-width:30em;line-height:1.8}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{border:1px solid var(--line);border-radius:16px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.005));transition:.3s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-4px);border-color:rgba(127,227,255,.24)}
+  .card:before{content:"";position:absolute;inset:0;background:radial-gradient(400px 160px at 20% 0,rgba(127,227,255,.08),transparent 70%);opacity:0;transition:.3s}
+  .card:hover:before{opacity:1}
+  .card .k{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.2em}
+  .card h3{font-family:var(--serif);font-weight:500;font-size:21px;margin:14px 0 10px}
+  .card p{font-size:13.5px;line-height:1.9;color:var(--dim);margin:0}
+
+  .shots{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:start}
+  .shot{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0b0e12;position:relative}
+  .shot img{width:100%;display:block;opacity:.95;max-height:520px;object-fit:cover;object-position:top center}
+  .shot .tag{position:absolute;left:14px;top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--teal);background:rgba(8,10,14,.7);border:1px solid rgba(127,227,255,.2);padding:5px 9px;border-radius:6px}
+  .shot-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+  .step{border-top:1px solid var(--line);padding-top:20px;position:relative}
+  .step:before{counter-increment:s;content:"0" counter(s);font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.2em}
+  .step h3{font-size:17px;margin:12px 0 8px;font-weight:500}
+  .step p{color:var(--dim);font-size:13px;line-height:1.85;margin:0}
+
+  .dl{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .dl .card{padding:30px}
+  .dl .meta{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:14px}
+  .dl .btn{margin-top:18px;width:100%;justify-content:center}
+
+  .privacy{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;border:1px solid var(--line);border-radius:20px;padding:38px;background:rgba(255,255,255,.015)}
+  .privacy h2{font-family:var(--serif);font-weight:500;font-size:30px;margin:0 0 14px}
+  .privacy p{color:var(--dim);font-size:13.5px;line-height:1.95;margin:0 0 10px}
+  .kv{font-family:var(--mono);font-size:12px;color:var(--dim);display:grid;gap:9px}
+  .kv b{color:var(--ink);font-weight:500}
+
+  details{border-bottom:1px solid var(--line);padding:18px 0}
+  details summary{cursor:pointer;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;gap:20px}
+  details summary::-webkit-details-marker{display:none}
+  details summary:after{content:"+";color:var(--faint);font-family:var(--mono)}
+  details[open] summary:after{content:"–"}
+  details p{color:var(--dim);font-size:13px;line-height:1.9;margin:12px 0 0}
+
+  .sums{border:1px solid var(--line);border-radius:12px;margin-top:20px;padding:0 18px;background:rgba(255,255,255,.012)}
+  .sums summary{padding:14px 0;font-size:13px;color:var(--dim)}
+  .sums-body{padding:0 0 16px;display:grid;gap:12px}
+  .sums pre{margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.9;color:var(--faint);white-space:pre-wrap;word-break:break-all}
+  .sums .btn{justify-self:start;padding:8px 14px;font-size:12px;cursor:pointer}
+  .sums .btn.done{border-color:rgba(127,227,255,.5);color:var(--teal)}
+  footer{border-top:1px solid var(--line);padding:46px 0 70px;color:var(--faint);font-size:12px}
+  footer .row{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+  footer a:hover{color:var(--ink)}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:34px}
+    .glyph{max-width:280px;margin:0 auto}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .grid,.dl,.steps{grid-template-columns:1fr}
+    .shots,.privacy{grid-template-columns:1fr}
+    .shot-row{grid-template-columns:1fr}
+    nav .links{display:none}
+    section{padding:70px 0}
+    .sec-head{flex-direction:column;gap:8px}
+    .sec-head p{margin-left:0}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 20px}
+    header{padding:56px 0 26px}
+    .hero{gap:22px}
+    h1{font-size:26px;line-height:1.34}
+    .lede{font-size:13.5px;line-height:1.9;margin-top:16px}
+    .eyebrow{font-size:10.5px;letter-spacing:.2em}
+    .cta{gap:9px;margin-top:22px}
+    .cta .btn{width:100%;justify-content:center;padding:12px 16px}
+    .note{font-size:11px;line-height:1.7}
+    .glyph{max-width:168px}
+    .glyph .cap{font-size:8.5px;letter-spacing:.12em;bottom:-2px}
+    .stats{grid-template-columns:1fr 1fr;margin-top:8px}
+    .stat{padding:18px 16px}
+    .stat b{font-size:26px}
+    .stat span{font-size:11px}
+    section{padding:52px 0}
+    .sec-head{margin-bottom:26px}
+    .sec-head h2{font-size:26px}
+    .card{padding:20px}
+    .privacy{padding:24px 20px}
+    .privacy h2{font-size:24px}
+    .shot img{max-height:360px}
+    footer{padding:32px 0 48px}
+  }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="aurora"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+<div class="grain"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><b>译</b>译匠</a>
+    <div class="links">
+      <a href="#features">功能</a>
+      <a href="#shots">界面</a>
+      <a href="#download">下载</a>
+      <a href="#privacy">隐私</a>
+      <a href="#faq">问题</a>
+    </div>
+    <a class="gh" data-github href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">LOCAL TRANSLATION WORKBENCH · v0.2.0</div>
+      <h1>把你的翻译规矩，<br/>做成可以运行的<em>知识库</em>。</h1>
+      <p class="lede">
+        译匠不是又一个翻译网站。它把你对某类文本的判断——<b>该拆的句子、该统一的名字、该避开的翻译腔</b>——
+        写成 252 条规则、24 个案例、114 条术语，翻译时按原文特征检索、组装提示词。
+        全部在本地，<b>没有译匠的服务器</b>。
+      </p>
+      <div class="cta">
+        <a class="btn primary" data-dl="setup" href="downloads/译匠-0.2.0-Setup.exe">Windows 安装版<small>Setup · 可选目录</small></a>
+        <a class="btn" data-dl="portable" href="downloads/译匠-0.2.0-免安装.zip">Windows 免安装<small>解压即用</small></a>
+        <a class="btn" data-dl="apk" href="downloads/译匠-0.2.0.apk">Android APK<small>7.0+</small></a>
+      </div>
+      <div class="note">免费测试版 · 无需注册 · 自带 API Key · 数据只在本机</div>
+    </div>
+    <div class="glyph">
+      <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+      <span class="zi">译</span>
+      <span class="cap">RULES · TERMS · CASES</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats reveal">
+    <div class="stat"><b>252</b><span>条规则卡 · 15 个领域</span></div>
+    <div class="stat"><b>24</b><span>个整段案例</span></div>
+    <div class="stat"><b>114</b><span>条术语 · AC 匹配</span></div>
+    <div class="stat"><b><i>0</i></b><span>台译匠服务器</span></div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head reveal"><span>FEATURES</span><h2>它到底在做什么</h2><p>不是让模型更聪明，而是让模型按你的标准工作。</p></div>
+    <div class="grid">
+      <div class="card reveal"><div class="k">01 / RETRIEVAL</div><h3>按原文选规则，而不是全塞进去</h3><p>检测文体、领域、触发特征，从 252 条卡里选 10 条：具体触发优先、BM25 相关度排序、同父卡限流。事实、数字、专名永远排在风格之前。</p></div>
+      <div class="card reveal"><div class="k">02 / MODES</div><h3>快速 / 标准 / 严格</h3><p>快速只译；标准译后做片段审校；严格再多一轮定点修复。三种路径对应三种成本与确定性，自由切换。</p></div>
+      <div class="card reveal"><div class="k">03 / TERMS</div><h3>术语不是查表，是约束</h3><p>114 条内置术语 + 本次临时术语。Aho–Corasick 多模式匹配，5 万条实测约 4ms/段；命中即锁定译名。</p></div>
+      <div class="card reveal"><div class="k">04 / CASES</div><h3>整段案例，学的是处理方式</h3><p>24 个整段参考译例，覆盖文学、诗歌、政经、法律、商务、科技、旅游。只取方法，不要求照抄。</p></div>
+      <div class="card reveal"><div class="k">05 / KNOWLEDGE</div><h3>父子卡、方向、阶段、冲突组</h3><p>规则有 scope、stage、direction、trigger、precedence、conflict_group。同层冲突按“具体优先”，仍冲突则显式标记，不静默裁决。</p></div>
+      <div class="card reveal"><div class="k">06 / PRIVACY</div><h3>没有服务器，只有本机</h3><p>历史在 SQLite，知识库与 Key 用 DPAPI 加密。原文只发往你选择的模型接口——这一点我们写清楚，不装作“完全离线”。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="shots">
+  <div class="wrap">
+    <div class="sec-head reveal"><span>INTERFACE</span><h2>界面</h2><p>左边原文，右边译文与规则；知识库是一棵可折叠的树。</p></div>
+    <div class="shots">
+      <div class="shot reveal"><span class="tag">DESKTOP · MAIN</span><img src="assets/desktop-main.png" alt="译匠桌面端主界面" loading="lazy" /></div>
+      <div class="shot reveal"><span class="tag">ANDROID · HOME</span><img src="assets/android-home.png" alt="译匠 Android 主界面" loading="lazy" /></div>
+    </div>
+    <div class="shot-row">
+      <div class="shot reveal"><span class="tag">KNOWLEDGE BASE</span><img src="assets/desktop-kb.png" alt="知识库规则树" loading="lazy" /></div>
+      <div class="shot reveal"><span class="tag">TERMS</span><img src="assets/desktop-terms.png" alt="术语库" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><span>HOW</span><h2>三步开始</h2></div>
+    <div class="steps">
+      <div class="step reveal"><h3>安装</h3><p>Windows 双击 Setup 或解压免安装包；Android 安装 APK。首次启动会创建本机数据目录。</p></div>
+      <div class="step reveal"><h3>填一个 Key</h3><p>设置里选服务商，填 OpenAI 兼容地址和 API Key。Key 只存在本机。</p></div>
+      <div class="step reveal"><h3>翻译</h3><p>粘贴原文，选模式与领域。右侧会显示译文、用到的规则、审校问题。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <div class="sec-head reveal"><span>DOWNLOAD</span><h2>下载</h2><p>免费测试版 · v0.2.0 · 2026-11</p></div>
+    <div class="dl">
+      <div class="card reveal">
+        <div class="k">WINDOWS · INSTALLER</div>
+        <h3>安装版</h3>
+        <p>可选安装目录，带卸载程序。首次运行需 WebView2（Win11 自带）。</p>
+        <div class="meta">约 19 MB · exe</div>
+        <a class="btn primary" data-dl="setup" href="downloads/译匠-0.2.0-Setup.exe">下载 Setup</a>
+      </div>
+      <div class="card reveal">
+        <div class="k">WINDOWS · PORTABLE</div>
+        <h3>免安装版</h3>
+        <p>解压到任意目录，双击 Yijiang.exe。不写注册表，适合 U 盘携带。</p>
+        <div class="meta">约 20 MB · zip</div>
+        <a class="btn" data-dl="portable" href="downloads/译匠-0.2.0-免安装.zip">下载压缩包</a>
+      </div>
+      <div class="card reveal">
+        <div class="k">ANDROID · APK</div>
+        <h3>手机版</h3>
+        <p>Android 7.0+，原生应用。安装时需允许“未知来源”。</p>
+        <div class="meta">约 11 MB · apk</div>
+        <a class="btn" data-dl="apk" href="downloads/译匠-0.2.0.apk">下载 APK</a>
+      </div>
+    </div>
+    <p class="note">未做代码签名，Windows SmartScreen 可能提示“未知发布者”：更多信息 → 仍要运行。</p>
+
+    <details class="sums reveal">
+      <summary>校验下载文件（SHA-256）</summary>
+      <div class="sums-body">
+        <pre id="sums">d83311a841fb41dc18f26ec57d495ae05c49df5ea4c2a53403ec02777073e62b  译匠-0.2.0-Setup.exe
+ddf6708ddbecd5ca14861eb3220ff46b96f8c3209df997688c654656f63e6e2c  译匠-0.2.0-免安装.zip
+a46aa1bec2bc85e75a8ec01412785d43205b15b63c962271d9e5ac9ad53d2055  译匠-0.2.0.apk</pre>
+        <button class="btn" data-copy="sums" type="button">复制校验值</button>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap privacy reveal">
+    <div>
+      <h2>数据，只在你手里</h2>
+      <p>没有账号、没有云同步、没有埋点。历史在 SQLite，知识库与 API Key 用 Windows DPAPI 加密；卸载即删除。</p>
+      <p>我们不会说“完全离线”。你点翻译时，原文会发给你自己配置的模型服务商——这一点写在隐私说明第一段。</p>
+    </div>
+    <div class="kv">
+      <div>服务器 <b>无</b></div>
+      <div>监听地址 <b>127.0.0.1</b></div>
+      <div>API Key <b>DPAPI 加密</b></div>
+      <div>历史 <b>本机 SQLite</b></div>
+      <div>遥测 <b>无</b></div>
+      <a class="btn" data-privacy href="privacy.html" style="margin-top:6px">隐私说明</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal"><span>FAQ</span><h2>常见问题</h2></div>
+    <details class="reveal"><summary>需要自己准备 API Key 吗？</summary><p>需要。译匠不代充、不代理。任何 OpenAI 兼容的 <code>/chat/completions</code> 接口都可以，DeepSeek、OpenAI、GLM、Kimi、Qwen、硅基流动等。</p></details>
+    <details class="reveal"><summary>免费版有什么限制？</summary><p>快速 / 标准永久免费；严格模式仅首次启动后 72 小时；可看完整知识库，可新增 3 条规则、1 个案例。术语导入、额外精修、片段审校、知识库导出为付费能力。到期只锁严格模式。</p></details>
+    <details class="reveal"><summary>为什么安装时被 SmartScreen 拦？</summary><p>测试版没有做代码签名。点“更多信息 → 仍要运行”。正式版会考虑签名。</p></details>
+    <details class="reveal"><summary>翻译质量比网页版好吗？</summary><p>不一定每句都更好。译匠的差别在于：它按你指定的规则和术语翻译，能告诉你用了哪条规则、哪里被审校改过。质量的上限仍取决于你配置的模型。</p></details>
+    <details class="reveal"><summary>支持 Mac / iOS 吗？</summary><p>暂不支持。当前是 Windows 与 Android。</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>译匠 · Yijiang v0.2.0</span>
+    <a href="license.html">许可</a>
+    <a href="privacy.html">隐私</a>
+    <a data-github href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    <span style="margin-left:auto">微信搜索：译匠公众号</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const c = document.getElementById('bg');
+  const ctx = c.getContext('2d');
+  let W, H, dpr;
+  const glyphs = "01{}[]<>/\\|=+*#AI译匠规则术语案例句子";
+  let parts = [];
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = c.clientWidth; H = c.clientHeight;
+    c.width = W * dpr; c.height = H * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n = Math.min(90, Math.floor(W / 16));
+    parts = Array.from({length: n}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      v: 6 + Math.random()*22, s: 9 + Math.random()*12,
+      ch: glyphs[Math.floor(Math.random()*glyphs.length)],
+      a: .06 + Math.random()*.18
+    }));
+  }
+  resize();
+  addEventListener('resize', resize);
+
+  let last = performance.now();
+  function frame(now){
+    const dt = Math.min(.05, (now-last)/1000); last = now;
+    ctx.clearRect(0,0,W,H);
+    ctx.font = '12px Consolas, monospace';
+    for(const p of parts){
+      p.y += p.v * dt;
+      if(p.y > H + 20){ p.y = -20; p.x = Math.random()*W; p.ch = glyphs[Math.floor(Math.random()*glyphs.length)]; }
+      ctx.fillStyle = `rgba(127,227,255,${p.a})`;
+      ctx.fillText(p.ch, p.x, p.y);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  const io = new IntersectionObserver((es) => {
+    for(const e of es) if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+</script>
+
+<script>
+(() => {
+  const cfg = Object.assign({
+    owner: "YOUR_GITHUB_NAME",
+    repo: "yijiang",
+    version: "v0.2.0",
+    useGitHub: false
+  }, window.YIJIANG_CONFIG || {});
+
+  const files = {
+    setup: "译匠-0.2.0-Setup.exe",
+    portable: "译匠-0.2.0-免安装.zip",
+    apk: "译匠-0.2.0.apk"
+  };
+  const configured = cfg.owner && cfg.owner !== "YOUR_GITHUB_NAME";
+  const ghBase = `https://github.com/${cfg.owner}/${cfg.repo}/releases/download/${cfg.version}/`;
+
+  document.querySelectorAll("[data-dl]").forEach(a => {
+    const name = files[a.dataset.dl];
+    if (!name) return;
+    a.href = (cfg.useGitHub && configured) ? ghBase + encodeURIComponent(name) : "downloads/" + encodeURIComponent(name);
+    a.setAttribute("download", "");
+  });
+
+  document.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const el = document.getElementById(btn.dataset.copy);
+      if (!el) return;
+      const text = el.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand("copy"); ta.remove();
+      }
+      btn.textContent = "已复制";
+      btn.classList.add("done");
+      setTimeout(() => { btn.textContent = "复制校验值"; btn.classList.remove("done"); }, 1800);
+    });
+  });
+
+  const gh = document.querySelector("[data-github]");
+  if (gh && configured) gh.href = `https://github.com/${cfg.owner}/${cfg.repo}`;
+})();
+</script>
+
+</body>
+</html>
