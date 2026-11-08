@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>购买译匠 · ¥49 买断</title>
+<meta name="description" content="译匠 Pro 买断 ¥49：解锁严格模式、额外精修、术语导入与知识库编辑，一码可激活 2 台设备。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d10'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23eef2f6' font-family='serif'%3E%E8%AF%91%3C/text%3E%3C/svg%3E" />
+<style>
+  :root{
+    --bg:#08090c; --bg2:#0c0f14; --ink:#eef2f6; --dim:#8c97a5; --faint:#5d6773;
+    --teal:#7fe3ff; --amber:#ffb15c; --line:rgba(255,255,255,.08);
+    --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",SimSun,Georgia,serif;
+    --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,sans-serif;
+    --mono:Consolas,"SFMono-Regular",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);background:rgba(8,9,12,.65);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:18px;letter-spacing:.12em}
+  .brand b{display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(255,255,255,.18);border-radius:8px;font-size:16px;color:var(--teal)}
+  nav .links{margin-left:auto;display:flex;gap:20px;font-size:13px;color:var(--dim)}
+  nav .links a:hover{color:var(--ink)}
+
+  header{padding:72px 0 24px;text-align:center}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--teal);opacity:.85}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.6vw,46px);line-height:1.3;margin:14px 0 10px}
+  .sub{color:var(--dim);font-size:15px;line-height:1.9;max-width:34em;margin:0 auto}
+  .price{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:26px 0 6px}
+  .price b{font-family:var(--mono);font-size:54px;font-weight:500;color:var(--ink)}
+  .price span{color:var(--faint);font-size:13px}
+  .once{text-align:center;color:var(--amber);font-size:13px;letter-spacing:.04em}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 10px}
+  .card{border:1px solid var(--line);border-radius:14px;padding:20px;background:rgba(255,255,255,.02)}
+  .card h3{margin:0 0 8px;font-size:15px;font-weight:500}
+  .card p{margin:0;color:var(--dim);font-size:13px;line-height:1.8}
+
+  section{padding:44px 0}
+  h2{font-family:var(--serif);font-weight:500;font-size:26px;margin:0 0 18px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{border-top:1px solid var(--line);padding-top:16px}
+  .step:before{content:counter(s);counter-increment:s;font-family:var(--mono);color:var(--amber);font-size:11px}
+  .steps{counter-reset:s}
+  .step h3{font-size:15px;margin:8px 0 6px;font-weight:500}
+  .step p{color:var(--dim);font-size:13px;line-height:1.8;margin:0}
+
+  .pay{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:8px}
+  .qr{border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:18px;text-align:center;background:rgba(255,255,255,.015)}
+  .qr .box{width:190px;height:190px;margin:0 auto 12px;border-radius:10px;background:#f5f1e8;display:grid;place-items:center;color:#6b5f4b;font-size:12px;line-height:1.7}
+  .qr b{display:block;font-size:14px;margin-bottom:4px;font-weight:500}
+  .qr span{color:var(--faint);font-size:12px}
+
+  form{border:1px solid var(--line);border-radius:14px;padding:22px;background:rgba(255,255,255,.02);display:grid;gap:12px}
+  label{font-size:12.5px;color:var(--dim);display:block;margin-bottom:5px}
+  input,textarea,select{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;color:var(--ink);
+    padding:10px 12px;font-size:14px;font-family:var(--sans);outline:none}
+  input:focus,textarea:focus,select:focus{border-color:rgba(127,227,255,.45)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  button{justify-self:start;background:linear-gradient(135deg,rgba(127,227,255,.2),rgba(127,227,255,.06));
+    border:1px solid rgba(127,227,255,.45);color:#dff8ff;padding:12px 22px;border-radius:10px;font-size:14px;cursor:pointer}
+  button:hover{transform:translateY(-1px)}
+  .hint{font-size:12px;color:var(--faint);line-height:1.8}
+
+  details{border-bottom:1px solid var(--line);padding:14px 0}
+  details summary{cursor:pointer;list-style:none;font-size:14px;display:flex;justify-content:space-between}
+  details summary::-webkit-details-marker{display:none}
+  details summary:after{content:"+";color:var(--faint);font-family:var(--mono)}
+  details[open] summary:after{content:"–"}
+  details p{color:var(--dim);font-size:13px;line-height:1.9;margin:10px 0 0}
+
+  .refund{border:1px solid rgba(255,177,92,.25);background:rgba(255,177,92,.05);border-radius:14px;padding:20px 22px}
+  .refund h2{margin:0 0 10px;font-size:20px;color:#ffd9a8}
+  .refund ol{margin:0;padding-left:20px;color:var(--dim);font-size:13.5px;line-height:2}
+
+  footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--faint);font-size:12px;display:flex;gap:18px;flex-wrap:wrap}
+
+  @media (max-width:820px){
+    .cards,.steps,.pay{grid-template-columns:1fr}
+    .row2{grid-template-columns:1fr}
+    header{padding:44px 0 16px}
+    .price b{font-size:44px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>译</b>译匠</a>
+    <div class="links">
+      <a href="index.html">首页</a>
+      <a href="index.html#download">下载</a>
+      <a href="privacy.html">隐私</a>
+      <a href="license.html">许可</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">YIJIANG PRO · 买断制</div>
+    <h1>一次付费，把这套知识库<br />变成你自己的</h1>
+    <p class="sub">免费版能翻译，Pro 版让它按你的规矩翻译：严格模式、额外精修、术语导入、知识库编辑，全部解锁。</p>
+    <div class="price"><b>¥49</b><span>买断</span></div>
+    <div class="once">一码两台设备（电脑 + 手机）· 不限翻译次数 · 当前大版本内持续可用</div>
+
+    <div class="cards">
+      <div class="card"><h3>严格模式</h3><p>译后审校 + 定点修复，问题逐条列出，适合要交稿的活。</p></div>
+      <div class="card"><h3>知识库可编辑</h3><p>新增/修改/停用自己的规则、案例、术语，导入自己的术语表。</p></div>
+      <div class="card"><h3>额外精修</h3><p>在审校之后再跑一遍润色，句子层面的调整，不改事实。</p></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>怎么买</h2>
+    <div class="steps">
+      <div class="step"><h3>扫码付款 ¥49</h3><p>微信或支付宝，备注里写上你的邮箱后四位，方便对账。</p></div>
+      <div class="step"><h3>填下面的表单</h3><p>留下邮箱和设备 ID（App 设置里能看到），方便把码发给你。</p></div>
+      <div class="step"><h3>收码激活</h3><p>24 小时内发到邮箱；在 App 的「设置 → 授权」里粘贴即可。</p></div>
+    </div>
+
+    <div class="pay" style="margin-top:26px">
+      <div class="qr">
+        <div class="box">微信收款码<br />（把 assets/pay-wechat.png 换成你的码）</div>
+        <b>微信支付</b><span>付款后请在表单里填订单号</span>
+      </div>
+      <div class="qr">
+        <div class="box">支付宝收款码<br />（把 assets/pay-alipay.png 换成你的码）</div>
+        <b>支付宝</b><span>到账更快，备注写邮箱</span>
+      </div>
+    </div>
+    <p class="hint">替换方式：把两张收款码图片命名为 <code>pay-wechat.png</code>、<code>pay-alipay.png</code> 放进 <code>assets/</code>，然后把上面两个方框换成 <code>&lt;img src="assets/pay-wechat.png" /&gt;</code>。</p>
+  </div>
+</section>
+
+<section id="order">
+  <div class="wrap">
+    <h2>提交订单信息</h2>
+    <form name="order" method="POST" action="https://formsubmit.co/huoshaolianhua@gmail.com">
+      <input type="hidden" name="_subject" value="译匠订单：请发激活码" />
+      <input type="hidden" name="_next" value="https://yijiang-app.netlify.app/thanks.html" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="form-name" value="order" />
+      <p hidden><label>不要填这个：<input name="bot-field" /></label></p>
+      <div class="row2">
+        <div><label>订单号 / 付款单号</label><input name="order" required placeholder="微信/支付宝账单里的单号" /></div>
+        <div><label>付款时间</label><input name="paid_at" placeholder="例如 2026-11-08 20:31" /></div>
+      </div>
+      <div class="row2">
+        <div><label>邮箱（用来收码）</label><input type="email" name="email" required placeholder="you@example.com" /></div>
+        <div><label>称呼（可选）</label><input name="name" placeholder="怎么称呼你" /></div>
+      </div>
+      <div class="row2">
+        <div><label>设备 ID（推荐填，App「设置 → 授权」）</label><input name="device" placeholder="留空则发通用码" /></div>
+        <div><label>购买平台</label>
+          <select name="platform"><option>Windows</option><option>Android</option><option>两个都要</option></select>
+        </div>
+      </div>
+      <div><label>备注（可选）</label><textarea name="note" rows="3" placeholder="发票、换机、特殊说明都可以写这里"></textarea></div>
+      <button type="submit">提交订单信息</button>
+      <p class="hint">提交后我会在 24 小时内把激活码发到你填的邮箱。若提示需要在邮箱里确认一次，请点一下确认（只需一次）。超过 24 小时没收到，请微信搜索【译匠公众号】留言。</p>
+    </form>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="refund">
+      <h2>退款政策</h2>
+      <ol>
+        <li><b>7 天内、且激活码未使用</b>：全额退款，原路退回，1–3 个工作日到账。</li>
+        <li><b>7 天内、激活码已使用</b>：不支持退款。激活即代表已获得完整授权，数字商品不适用七天无理由。</li>
+        <li><b>超过 7 天</b>：不支持退款，但可以免费更换一次设备（需提供旧设备 ID）。</li>
+        <li><b>无法激活</b>：先按邮件里的排查步骤试；确认是软件问题且无法修复的，全额退款。</li>
+        <li><b>重复付款</b>：提供两笔订单号，多付的一笔原路退回。</li>
+      </ol>
+      <p class="hint" style="margin-top:12px">申请退款请发邮件或在公众号留言，附订单号与付款截图。退款完成后，对应激活码会作废。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>常见问题</h2>
+    <details><summary>码能用在几台设备上？</summary><p>一个码可激活 2 台：一台电脑 + 一台手机。绑定后换设备需要重新发码，每单免费换一次。</p></details>
+    <details><summary>以后升级要再付钱吗？</summary><p>不用。¥49 买断 v0.2 大版本内的所有更新；如果以后出 v1.0 大版本，老用户会有折扣，不强制升级。</p></details>
+    <details><summary>能开发票吗？</summary><p>目前是个人收款，暂时开不了发票。需要发票的话请先别付款，在公众号留言说明，我这边确认后再走能开票的渠道。</p></details>
+    <details><summary>支持哪些模型？</summary><p>任何 OpenAI 兼容接口：DeepSeek、OpenAI、Claude、Gemini、通义、智谱、Kimi、硅基流动、OpenRouter，API Key 自己填，费用付给模型厂商。</p></details>
+    <details><summary>翻译内容会被上传吗？</summary><p>不会上传到译匠的服务器（没有服务器）。但原文会发给你自己配置的模型接口，这点在<a href="privacy.html" style="color:var(--teal)">隐私说明</a>里写清楚了。</p></details>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>译匠 · Yijiang v0.2</span>
+  <a href="index.html">首页</a>
+  <a href="privacy.html">隐私</a>
+  <a href="license.html">许可</a>
+  <span style="margin-left:auto">微信搜索：译匠公众号</span>
+</footer>
+
+</body>
+</html>

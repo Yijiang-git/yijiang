@@ -2,7 +2,7 @@
 
 **一个装在本机的英汉翻译工作台：把你的翻译规矩，变成一套可检索、可执行的知识库。**
 
-[![Release](https://img.shields.io/badge/release-v0.2.0-2f6b5e)](../../releases/latest)
+[![Release](https://img.shields.io/badge/release-v0.2-2f6b5e)](../../releases/latest)
 [![Windows](https://img.shields.io/badge/Windows-10%2F11%20x64-3d5f7d)](#下载)
 [![Android](https://img.shields.io/badge/Android-7.0%2B-3d5f7d)](#下载)
 [![License](https://img.shields.io/badge/license-free%20test-orange)](LICENSE)
@@ -19,9 +19,9 @@
 
 | 平台 | 文件 | 说明 |
 |---|---|---|
-| Windows | `译匠-0.2.0-Setup.exe` | 安装版，可选目录 |
-| Windows | `译匠-0.2.0-免安装.zip` | 解压即用 |
-| Android | `译匠-0.2.0.apk` | 需允许未知来源 |
+| Windows | [`Yijiang-0.2-Setup.exe`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2/Yijiang-0.2-Setup.exe) | 安装版，可选目录 |
+| Windows | [`Yijiang-0.2-portable.zip`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2/Yijiang-0.2-portable.zip) | 解压即用 |
+| Android | [`Yijiang-0.2.apk`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2/Yijiang-0.2.apk) | 需允许未知来源 |
 
 校验和见 Release 页的 `SHA256SUMS.txt`。
 
@@ -30,7 +30,7 @@
 市面上的翻译工具大多在比“模型谁更强”。译匠比的是另一件事：
 **你希望这类文本怎么译。**
 
-- 252 条规则卡，覆盖 15 个领域：政经、法律、商务、科技医学、新闻、旅游、学术、儿童文学、诗歌……
+- 259 条规则卡，覆盖 15 个领域：政经、法律、商务、科技医学、新闻、旅游、学术、儿童文学、诗歌……
 - 每条规则带触发条件、方向、阶段、冲突组；翻译时按原文特征检索 10 条进提示词。
 - 24 个整段案例、114 条术语；术语用 Aho–Corasick 匹配，5 万条实测约 4 ms/段。
 - 快速 / 标准 / 严格三种模式；标准与严格带片段审校与定点修复。
@@ -42,7 +42,7 @@
 |---|---|---|
 | 系统 | Windows 10/11 x64（WebView2） | Android 7.0+ |
 | 翻译模式 | 快速 / 标准 / 严格 | 快速 / 标准 / 严格 |
-| 知识库 | 252 规则 / 24 案例 / 114 术语，父子卡筛选 | 规则 / 术语 / 案例三栏 |
+| 知识库 | 259 规则 / 24 案例 / 114 术语，父子卡筛选 | 规则 / 术语 / 案例三栏 |
 | 术语 | 全局 + 本次临时术语 | 本机术语库 |
 | 审校 | 片段级，问题清单 + 定点修复 | 同左 |
 | 数据 | SQLite + 本地加密文件 | SharedPreferences + 私有目录 |
