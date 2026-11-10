@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
@@ -209,9 +209,9 @@
         全部在本地，<b>没有译匠的服务器</b>。
       </p>
       <div class="cta">
-        <a class="btn primary" data-dl="setup" href="downloads/Yijiang-0.2-Setup.exe">Windows 安装版<small>Setup · 可选目录</small></a>
-        <a class="btn" data-dl="portable" href="downloads/Yijiang-0.2-portable.zip">Windows 免安装<small>解压即用</small></a>
-        <a class="btn" data-dl="apk" href="downloads/Yijiang-0.2.apk">Android APK<small>7.0+</small></a>
+        
+        
+        
       </div>
       <div class="note">免费测试版 · 无需注册 · 自带 API Key · 数据只在本机</div>
     </div>
@@ -285,42 +285,35 @@
 
 <section id="download">
   <div class="wrap">
-    <div class="sec-head reveal"><span>DOWNLOAD</span><h2>下载</h2><p>免费版可直接下载 · v0.2 · 2026-11</p></div>
-    <div class="dl">
+    <div class="sec-head reveal"><span>DOWNLOAD</span><h2>下载</h2><p>免费版直接下载；轻量与买断请先购买。</p></div>
+    <div class="dl" style="grid-template-columns:repeat(3,1fr)">
       <div class="card reveal">
-        <div class="k">WINDOWS · INSTALLER</div>
-        <h3>安装版</h3>
-        <p>可选安装目录，带卸载程序。首次运行需 WebView2（Win11 自带）。</p>
-        <div class="meta">约 19 MB · exe</div>
-        <a class="btn primary" data-dl="setup" href="downloads/Yijiang-0.2-Setup.exe">下载 Setup</a>
+        <div class="k">FREE · ¥0</div>
+        <h3>免费版</h3>
+        <p>快速/标准不限次；72 小时后严格模式每天 3 次；可改 3 条规则、1 个案例。</p>
+        <div class="meta">Windows 安装包 · Android APK</div>
+        <a class="btn primary" href="https://yijiang-app.netlify.app/downloads/yijiang-free-setup.exe">下载 Windows 版</a>
+        <a class="btn" href="https://yijiang-app.netlify.app/downloads/yijiang-free.apk" style="margin-top:8px">下载 Android 版</a>
       </div>
       <div class="card reveal">
-        <div class="k">WINDOWS · PORTABLE</div>
-        <h3>免安装版</h3>
-        <p>解压到任意目录，双击 Yijiang.exe。不写注册表，适合 U 盘携带。</p>
-        <div class="meta">约 20 MB · zip</div>
-        <a class="btn" data-dl="portable" href="downloads/Yijiang-0.2-portable.zip">下载压缩包</a>
+        <div class="k">LITE · ¥49</div>
+        <h3>轻量版</h3>
+        <p>每天 50 次严格模式；可改 50 条规则、10 个案例、20 条术语。买断。</p>
+        <div class="meta">购买后发货 · Windows / Android</div>
+        <a class="btn" href="https://mbd.pub/o/PLACEHOLDER" target="_blank" rel="noopener">去面包多购买</a>
+        <a class="btn" href="https://mbd.pub/o/PLACEHOLDER" target="_blank" rel="noopener" style="margin-top:8px">查看 Android 版</a>
       </div>
       <div class="card reveal">
-        <div class="k">ANDROID · APK</div>
-        <h3>手机版</h3>
-        <p>Android 7.0+，原生应用。安装时需允许“未知来源”。</p>
-        <div class="meta">约 11 MB · apk</div>
-        <a class="btn" data-dl="apk" href="downloads/Yijiang-0.2.apk">下载 APK</a>
+        <div class="k">BUYOUT · ¥89</div>
+        <h3>买断版</h3>
+        <p>终身、全功能不限量；解压即用，不需要激活码；大版本更新凭付款凭证领取。</p>
+        <div class="meta">购买后发货 · Windows 压缩包 / Android</div>
+        <a class="btn" href="https://mbd.pub/o/PLACEHOLDER" target="_blank" rel="noopener">去面包多购买</a>
+        <a class="btn" href="https://mbd.pub/o/PLACEHOLDER" target="_blank" rel="noopener" style="margin-top:8px">查看 Android 版</a>
       </div>
     </div>
-    <p class="note">国内访问 GitHub 慢时，点击下载会自动切到 Netlify 镜像（同一份文件）。</p>
+    <p class="note">免费版可直接下载；轻量版与买断版通过面包多购买后发货（安装包不在公开站点托管）。购买入口：微信搜索【译匠公众号】。</p>
     <p class="note">未做代码签名，Windows SmartScreen 可能提示“未知发布者”：更多信息 → 仍要运行。</p>
-
-    <details class="sums reveal">
-      <summary>校验下载文件（SHA-256）</summary>
-      <div class="sums-body">
-        <pre id="sums">91733fb625d86847616b4dd81b3b42a6c8d49af5c96ce1b6178e3c46da52633a  Yijiang-0.2-Setup.exe
-201efb117fa9b85c15cf85f072893b1896dc1a7008749e68c8e70665f7a18c8b  Yijiang-0.2-portable.zip
-459019b7b757b3cf8c446d6076fb370fd08baae6ee7a8f62ed92caeb36ee7932  Yijiang-0.2.apk</pre>
-        <button class="btn" data-copy="sums" type="button">复制校验值</button>
-      </div>
-    </details>
   </div>
 </section>
 
@@ -342,11 +335,29 @@
   </div>
 </section>
 
+<section id="refund">
+  <div class="wrap">
+    <div class="sec-head reveal"><span>REFUND</span><h2>退款与售后</h2></div>
+    <div class="card reveal" style="max-width:900px">
+      <p><b>轻量版 ¥49 / 买断版 ¥89</b> 属于虚拟商品，发货方式是面包多自动发货或公众号人工发货。</p>
+      <ul style="line-height:1.9;margin:10px 0 0 18px">
+        <li><b>未发货 / 未激活</b>：付款后 7 天内可全额退款，直接在面包多订单页申请，或在公众号留言订单号。</li>
+        <li><b>已发货但无法运行</b>：先联系售后排查；确认是软件本身问题且无法修复的，7 天内可退。</li>
+        <li><b>已激活 / 已正常使用</b>：虚拟商品一经激活不支持无理由退款，请先在免费版试用确认。</li>
+        <li><b>重复付款 / 发错版本</b>：核实后原路退回多付部分，或补发正确版本。</li>
+        <li><b>换机</b>：买断版解压即用，不受设备限制；轻量版为单机授权，换机请在公众号说明。</li>
+      </ul>
+      <p class="note" style="margin-top:10px">售后入口：微信搜索【译匠公众号】留言，附订单号与问题截图。工作日 24 小时内回复。</p>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
   <div class="wrap">
     <div class="sec-head reveal"><span>FAQ</span><h2>常见问题</h2></div>
     <details class="reveal"><summary>需要自己准备 API Key 吗？</summary><p>需要。译匠不代充、不代理。任何 OpenAI 兼容的 <code>/chat/completions</code> 接口都可以，DeepSeek、OpenAI、GLM、Kimi、Qwen、硅基流动等。</p></details>
-    <details class="reveal"><summary>免费版有什么限制？</summary><p>快速 / 标准永久免费；严格模式仅首次启动后 72 小时；可看完整知识库，可新增 3 条规则、1 个案例。术语导入、额外精修、片段审校、知识库导出为付费能力。到期只锁严格模式。</p></details>
+    <details class="reveal"><summary>免费版有什么限制？</summary><p>快速 / 标准永久免费；首次启动后 72 小时内严格模式不限次，之后每天 3 次；可看完整知识库，可新增 3 条规则、1 个案例，术语只能临时使用。额外精修、片段审校、术语导入、知识库导出为付费能力。每天 3 次用完后只锁严格模式，第二天 0 点恢复。</p></details>
+    <details class="reveal"><summary>买了之后能退吗？</summary><p>未发货或未激活的订单 7 天内可全额退款；已激活的虚拟商品不支持无理由退款。详见 <a href="#refund">退款与售后</a>。</p></details>
     <details class="reveal"><summary>为什么安装时被 SmartScreen 拦？</summary><p>测试版没有做代码签名。点“更多信息 → 仍要运行”。正式版会考虑签名。</p></details>
     <details class="reveal"><summary>翻译质量比网页版好吗？</summary><p>不一定每句都更好。译匠的差别在于：它按你指定的规则和术语翻译，能告诉你用了哪条规则、哪里被审校改过。质量的上限仍取决于你配置的模型。</p></details>
     <details class="reveal"><summary>支持 Mac / iOS 吗？</summary><p>暂不支持。当前是 Windows 与 Android。</p></details>
@@ -358,6 +369,7 @@
     <span>译匠 · Yijiang v0.2</span>
     <a href="license.html">许可</a>
     <a href="privacy.html">隐私</a>
+    <a href="#refund">退款</a>
     <a data-github href="https://github.com" target="_blank" rel="noopener">GitHub</a>
     <span style="margin-left:auto">微信搜索：译匠公众号</span>
   </div>
@@ -418,10 +430,10 @@
     useGitHub: false
   }, window.YIJIANG_CONFIG || {});
 
+  // 只托管免费版；轻量/买断由面包多发货，不在此暴露直链
   const files = {
-    setup: "Yijiang-0.2-Setup.exe",
-    portable: "Yijiang-0.2-portable.zip",
-    apk: "Yijiang-0.2.apk"
+    free_pc: "yijiang-free-setup.exe",
+    free_apk: "yijiang-free.apk"
   };
   const configured = cfg.owner && cfg.owner !== "YOUR_GITHUB_NAME";
   const ghBase = `https://github.com/${cfg.owner}/${cfg.repo}/releases/download/${cfg.version}/`;
