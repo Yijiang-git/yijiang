@@ -13,17 +13,23 @@
 
 ![主界面](screenshots/desktop-main.png)
 
-## 下载
+## 三个版本
 
-到 [Releases](../../releases/latest) 下载：
+| 版本 | 价格 | 严格模式 | 知识库额度 | 获取方式 |
+|---|---|---|---|---|
+| 免费版 | ¥0 | 前 72 小时不限次，之后每天 3 次 | 规则 3 / 案例 1 / 术语仅临时 | 直接下载 |
+| 轻量版 | ¥49 买断 | 每天 50 次 | 规则 50 / 案例 10 / 术语 20 | 面包多购买后发货 |
+| 买断版 | ¥89 终身 | 不限次 | 不限量 | 面包多购买后发货 |
 
-| 平台 | 文件 | 说明 |
-|---|---|---|
-| Windows | [`Yijiang-0.2-Setup.exe`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2/Yijiang-0.2-Setup.exe) | 安装版，可选目录 |
-| Windows | [`Yijiang-0.2-portable.zip`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2/Yijiang-0.2-portable.zip) | 解压即用 |
-| Android | [`Yijiang-0.2.apk`](https://github.com/Yijiang-git/yijiang/releases/download/v0.2/Yijiang-0.2.apk) | 需允许未知来源 |
+免费版下载（Windows / Android）：
 
-校验和见 Release 页的 `SHA256SUMS.txt`。
+- <https://yijiang-app.netlify.app/downloads/yijiang-free-setup.exe>
+- <https://yijiang-app.netlify.app/downloads/yijiang-free.apk>
+
+轻量版与买断版不在公开仓库托管，购买入口：微信搜索【译匠公众号】，或到 <https://yijiang-app.netlify.app> 的下载区。
+退款与售后规则见发布页 <https://yijiang-app.netlify.app/#refund>。
+
+校验和：<https://yijiang-app.netlify.app/downloads/SHA256SUMS.txt>
 
 ## 它是什么
 
@@ -56,7 +62,7 @@
 ## 免费测试版说明
 
 - 快速 / 标准翻译：永久免费
-- 严格模式：首次启动后 72 小时内
+- 严格模式：首次启动后 72 小时内不限次，之后每天 3 次
 - 可查看完整内置知识库；可新增 3 条规则、1 个案例
 - 术语导入、额外精修、片段审校、知识库导出为付费能力
 - 72 小时到期只锁严格模式，不影响其他功能
