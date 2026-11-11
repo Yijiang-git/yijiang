@@ -23,13 +23,13 @@
 
 免费版下载（Windows / Android）：
 
-- <https://yijiang-app.netlify.app/downloads/yijiang-free-setup.exe>
-- <https://yijiang-app.netlify.app/downloads/yijiang-free.apk>
+- <https://github.com/Yijiang-git/yijiang/releases/download/v0.2/yijiang-free-setup.exe>
+- <https://github.com/Yijiang-git/yijiang/releases/download/v0.2/yijiang-free.apk>
 
 轻量版与买断版不在公开仓库托管，购买入口：微信搜索【译匠公众号】，或到 <https://yijiang-app.netlify.app> 的下载区。
 退款与售后规则见发布页 <https://yijiang-app.netlify.app/#refund>。
 
-校验和：<https://yijiang-app.netlify.app/downloads/SHA256SUMS.txt>
+校验和：<https://github.com/Yijiang-git/yijiang/releases/download/v0.2/SHA256SUMS.txt>
 
 ## 它是什么
 
