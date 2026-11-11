@@ -1,4 +1,4 @@
-# 译匠 · Yijiang
+﻿# 译匠 · Yijiang
 
 **一个装在本机的英汉翻译工作台：把你的翻译规矩，变成一套可检索、可执行的知识库。**
 
@@ -7,7 +7,7 @@
 [![Android](https://img.shields.io/badge/Android-7.0%2B-3d5f7d)](#下载)
 [![License](https://img.shields.io/badge/license-free%20test-orange)](LICENSE)
 
-没有译匠的服务器。用户自带 API Key；原文只从本机发往用户自己选择的模型接口。
+翻译内容不经过译匠服务器。用户自带 API Key；原文只从本机发往用户自己选择的模型接口。轻量版/完整版的授权校验会连接 Cloudflare Pages 许可服务器，只传订单号与随机安装 ID。
 
 **下载页：<https://yijiang-git.github.io/yijiang/>**　|　[ Releases ](https://github.com/Yijiang-git/yijiang/releases)
 
@@ -18,16 +18,19 @@
 | 版本 | 价格 | 严格模式 | 知识库额度 | 获取方式 |
 |---|---|---|---|---|
 | 免费版 | ¥0 | 前 72 小时不限次，之后每天 3 次 | 规则 3 / 案例 1 / 术语仅临时 | 直接下载 |
-| 轻量版 | ¥49 买断 | 每天 50 次 | 规则 50 / 案例 10 / 术语 20 | 面包多购买后发货 |
-| 买断版 | ¥89 终身 | 不限次 | 不限量 | 面包多购买后发货 |
+| 轻量版 | ¥49/年 | 每天 50 次 | 规则 50 / 案例 10 / 术语 20 | 面包多购买后发货 |
+| 完整版 | ¥89/年 | 不限次 | 不限量 | 面包多购买后发货 |
+| 企业版 | 不公开销售 | 不限次 | 不限量 | 仅按需联系公众号 |
+
+企业版不经过除 API 端以外的任何服务器，适合对链路有严格要求的用户；公开版需要联网激活/续期。
 
 免费版下载（Windows / Android）：
 
 - <https://github.com/Yijiang-git/yijiang/releases/download/v0.2/yijiang-free-setup.exe>
 - <https://github.com/Yijiang-git/yijiang/releases/download/v0.2/yijiang-free.apk>
 
-轻量版与买断版不在公开仓库托管，购买入口：微信搜索【译匠公众号】，或到 <https://yijiang-app.netlify.app> 的下载区。
-退款与售后规则见发布页 <https://yijiang-app.netlify.app/#refund>。
+轻量版与完整版不在公开仓库托管，购买入口：微信搜索【译匠公众号】，或到 <https://yijiang-git.github.io/yijiang/> 的购买区。
+退款与售后规则见 <https://yijiang-git.github.io/yijiang/refund.html>。
 
 校验和：<https://github.com/Yijiang-git/yijiang/releases/download/v0.2/SHA256SUMS.txt>
 
@@ -101,3 +104,4 @@ Windows 10 需要 [WebView2 Runtime](https://developer.microsoft.com/microsoft-e
 ## 反馈
 
 微信搜索【译匠公众号】。Issue 也欢迎，请附系统版本、复现步骤、日志。
+
