@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>译匠 · 隐私说明</title>
-<meta name="description" content="译匠的隐私说明：没有账号、没有云同步、没有遥测；原文只在翻译时发送给你自己配置的模型服务商。" />
+<meta name="description" content="译匠的隐私说明：数据只在本机，没有内容服务器或许可服务器；原文只发送给你自己配置的模型服务商。" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0d10'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23eef2f6' font-family='serif'%3E%E8%AF%91%3C/text%3E%3C/svg%3E" />
 <style>
   :root{
@@ -21,7 +21,7 @@
   nav{border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:44px;font-size:13px;color:var(--dim);display:flex;gap:18px}
   h1{font-family:var(--serif);font-weight:500;font-size:38px;margin:0 0 8px;letter-spacing:.02em}
   .sub{color:var(--faint);font-size:12.5px;margin-bottom:40px}
-  h2{font-family:var(--serif);font-weight:500;font-size:21px;margin:38px 0 10px}
+  h2{font-family:var(--serif);font-weight:500;font-size:21px;margin:36px 0 10px}
   p,li{color:var(--dim);font-size:14.5px}
   li{margin:6px 0}
   b{color:var(--ink);font-weight:500}
@@ -35,56 +35,55 @@
   <nav>
     <a href="index.html">← 返回首页</a>
     <a href="license.html">许可</a>
+    <a href="refund.html">反馈或退款</a>
   </nav>
 
   <h1>隐私说明</h1>
-  <div class="sub">最后更新：2026-11-12 · 适用于 Windows 与 Android 版</div>
+  <div class="sub">最后更新：2026-11-18 · 适用于 Windows 版</div>
 
   <div class="box">
-    <p>简单说：你的翻译内容不经过译匠服务器，我们也不做统计；翻译时原文会发送给<b>你自己配置的模型服务商</b>。我们不承诺完全匿名，但不会收集你的原文、译文、知识库、API Key、姓名、邮箱或手机号。</p>
+    <p>简单说：你的翻译内容不经过译匠服务器，我们也不做统计；翻译时原文会发送给<b>你自己配置的模型服务商</b>。我们不收集你的原文、译文、知识库、API Key、姓名、邮箱或手机号。</p>
   </div>
 
   <h2>一、我们收集什么</h2>
-  <p><b>不收集内容。</b>译匠没有账号系统、没有内容数据库、没有埋点 SDK、没有崩溃上报。我们不要求你注册，也不知道你翻译了什么。</p>
-  <p>轻量版 / 完整版需要激活码。激活码本身在本机用内置公钥验签；<b>在线激活和每次启动续期</b>会连接译匠许可服务器，只传输订单号、随机安装 ID 和当前激活码，用于换机、吊销与续期。许可服务器不接收原文、译文、知识库、API Key、姓名、邮箱或手机号。</p>
-  <p>许可服务器只保存订单号、安装 ID 的 HMAC、产品档位与到期时间。为防止订单号被枚举，服务器会做短窗口限流；计数键是 IP 的 HMAC，<b>不保存原始 IP</b>，窗口结束后失效。</p>
+  <p><b>不收集内容。</b>译匠没有账号系统、没有内容数据库、没有埋点 SDK、没有崩溃上报，也没有许可服务器。我们不要求你注册，也不知道你翻译了什么。</p>
+  <p>当前版本没有激活码、订单号或联网激活；不存在向译匠服务器发送安装 ID、订单号或授权状态的行为。</p>
 
   <h2>二、数据存在哪里</h2>
   <ul>
-    <li><b>Windows：</b>设置、历史、知识库存在本机用户目录下的 SQLite 数据库；API Key 与知识库文件用 Windows DPAPI 加密，只有当前 Windows 账户能解开。</li>
-    <li><b>Android：</b>设置与翻译记忆存在应用私有目录（SharedPreferences / SQLite）；API Key 只存本机，不随备份上传。</li>
-    <li>卸载应用时，Windows 版卸载程序会明确询问“是否同时删除本机数据”；选择“是”会删除历史、API Key、自建规则与授权状态，选择“否”则保留，方便重装继续使用。Android 卸载由系统删除应用私有目录。</li>
+    <li>设置、翻译历史、知识库存在本机数据目录下的 SQLite 数据库；</li>
+    <li>API Key 与用户知识库用 Windows DPAPI 加密，只有当前 Windows 账户能解开；</li>
+    <li>卸载时，Windows 版卸载程序会询问“是否同时删除本机数据”；选择“是”会删除历史、API Key、自建规则与状态，选择“否”则保留，方便重装继续使用。</li>
   </ul>
 
   <h2>三、什么会被发送出去</h2>
-  <p>只有当你点击「翻译」时，以下内容会被发送到你在设置里填写的接口地址（DeepSeek、OpenAI、Claude、Gemini、通义、智谱、Kimi、硅基流动、OpenRouter 或你自己的兼容网关）：</p>
+  <p>只有当你点击「翻译」时，以下内容会被发送到你在设置里填写的接口地址（DeepSeek、OpenAI、Claude、Gemini、通义、智谱、Kimi、硅基流动或你自己的兼容网关）：</p>
   <ul>
     <li>你要翻译的原文（可能包含系统提示词、命中的规则卡、术语与案例）；</li>
     <li>你配置的 API Key（作为请求头发送，仅用于鉴权）。</li>
   </ul>
   <p>这些数据由该服务商的隐私政策约束，译匠无法控制。如果你处理的是保密材料，请自行评估或改用本地模型网关。</p>
-  <p>Android 版启动时会向 <b>www.baidu.com</b> 发一次 HEAD 请求读取服务器时间，用于校准免费体验与每日次数；只包含常规 HTTP 请求头，不发送原文、译文、API Key 或设备标识。Windows 版不进行这次校时。</p>
 
   <h2>四、不会发送的内容</h2>
   <ul>
     <li>你的翻译历史与知识库改动（除非它们作为规则/术语被拼进提示词）；</li>
-    <li>除激活/换机/续期必需的订单号、随机安装 ID 与激活码外的任何设备标识、统计信息、使用行为；</li>
+    <li>设备标识、统计信息、使用行为；</li>
     <li>硬件序列号、通讯录、位置、相册、原文、译文、知识库内容。</li>
   </ul>
 
   <h2>五、第三方</h2>
-  <p>译匠本身不集成广告、统计或社交 SDK。Windows 版使用系统自带的 WebView2 渲染界面；Android 版使用系统 WebView 之外的组件均为开源库（OkHttp、Kotlin Coroutines、Jetpack Compose）。</p>
+  <p>译匠本身不集成广告、统计或社交 SDK。Windows 版使用系统自带的 WebView2 渲染界面；第三方组件仅为 Python、FastAPI、PyWebView / WebView2 等运行依赖。</p>
 
   <h2>六、儿童</h2>
   <p>译匠不面向 14 岁以下儿童单独提供服务，也不会主动收集任何年龄信息。</p>
 
   <h2>七、你的权利</h2>
-  <p>因为数据都在你本机，删除即彻底删除：Windows 卸载应用并删除数据目录；Android 在系统设置里清除应用数据或卸载。我们这边没有副本可删。</p>
+  <p>因为数据都在你本机，删除即彻底删除：卸载应用并删除数据目录即可。我们这边没有副本可删。</p>
 
   <h2>八、联系我们</h2>
   <p>隐私相关问题：微信搜索【译匠公众号】留言，或在 GitHub 仓库提 Issue。我们会在看到后回复。</p>
 
-  <footer>译匠 · Yijiang v0.2.0 · 本页可离线保存</footer>
+  <footer>译匠 · Yijiang v0.2 · 本页可离线保存</footer>
 </div>
 </body>
 </html>

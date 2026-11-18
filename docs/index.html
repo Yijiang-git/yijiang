@@ -1,14 +1,14 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>译匠 · 把你的翻译规矩，变成一套可以运行的知识库</title>
-<meta name="description" content="译匠是一个装在本机的英汉翻译工作台：259 条规则、24 个案例、114 条术语，全部在本地。免费测试版，Windows 与 Android 可直接下载。" />
+<meta name="description" content="译匠是一个装在本机的英汉翻译工作台：免费版本体只带 1 条身份卡，169/260 条知识库以 JSON 文件导入。全部在本地，Windows 可直接下载。" />
 <meta name="theme-color" content="#08090c" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="译匠 · 把你的翻译规矩，变成一套可以运行的知识库" />
-<meta property="og:description" content="本机运行的英汉翻译工作台：259 条规则、24 个案例、114 条术语参与提示词。免费测试版，Windows 与 Android 可直接下载。" />
+<meta property="og:description" content="本机运行的英汉翻译工作台：免费版空壳 + 可导入的 169/260 条知识库，24 个案例、190 条术语。Windows 可直接下载。" />
 <meta property="og:image" content="assets/desktop-main.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="译匠 · 本地翻译工作台" />
@@ -209,7 +209,7 @@
       <h1>把你的翻译规矩，<br/>做成可以运行的<em>知识库</em>。</h1>
       <p class="lede">
         译匠不是又一个翻译网站。它把你对某类文本的判断——<b>该拆的句子、该统一的名字、该避开的翻译腔</b>——
-        写成 259 条规则、24 个案例、114 条术语，翻译时按原文特征检索、组装提示词。
+        写成 260 条规则、24 个案例、190 条术语，翻译时按原文特征检索、组装提示词。
         全部在本地，<b>没有译匠的服务器</b>。
       </p>
       <div class="cta">
@@ -229,9 +229,9 @@
 
 <div class="wrap">
   <div class="stats reveal">
-    <div class="stat"><b>259</b><span>条规则卡 · 15 个领域</span></div>
+    <div class="stat"><b>260</b><span>条可选规则 · 15 个领域</span></div>
     <div class="stat"><b>24</b><span>个整段案例</span></div>
-    <div class="stat"><b>114</b><span>条术语 · AC 匹配</span></div>
+    <div class="stat"><b>190</b><span>条术语 · AC 匹配</span></div>
     <div class="stat"><b><i>0</i></b><span>台译匠服务器</span></div>
   </div>
 </div>
@@ -240,26 +240,26 @@
   <div class="wrap">
     <div class="sec-head reveal"><span>FEATURES</span><h2>它到底在做什么</h2><p>不是让模型更聪明，而是让模型按你的标准工作。</p></div>
     <div class="grid">
-      <div class="card reveal"><div class="k">01 / RETRIEVAL</div><h3>按原文选规则，而不是全塞进去</h3><p>检测文体、领域、触发特征，从 259 条卡里选 10 条：具体触发优先、BM25 相关度排序、同父卡限流。事实、数字、专名永远排在风格之前。</p></div>
+      <div class="card reveal"><div class="k">01 / RETRIEVAL</div><h3>按原文选规则，而不是全塞进去</h3><p>检测文体、领域、触发特征，从 260 条卡里选 10 条：具体触发优先、BM25 相关度排序、同父卡限流。事实、数字、专名永远排在风格之前。</p></div>
       <div class="card reveal"><div class="k">02 / MODES</div><h3>快速 / 标准 / 严格</h3><p>快速只译；标准译后做片段审校；严格再多一轮定点修复。三种路径对应三种成本与确定性，自由切换。</p></div>
-      <div class="card reveal"><div class="k">03 / TERMS</div><h3>术语不是查表，是约束</h3><p>114 条内置术语 + 本次临时术语。Aho–Corasick 多模式匹配，5 万条实测约 4ms/段；命中即锁定译名。</p></div>
+      <div class="card reveal"><div class="k">03 / TERMS</div><h3>术语不是查表，是约束</h3><p>190 条内置术语 + 本次临时术语。Aho–Corasick 多模式匹配，5 万条实测约 4ms/段；命中即锁定译名。</p></div>
       <div class="card reveal"><div class="k">04 / CASES</div><h3>整段案例，学的是处理方式</h3><p>24 个整段参考译例，覆盖文学、诗歌、政经、法律、商务、科技、旅游。只取方法，不要求照抄。</p></div>
       <div class="card reveal"><div class="k">05 / KNOWLEDGE</div><h3>父子卡、方向、阶段、冲突组</h3><p>规则有 scope、stage、direction、trigger、precedence、conflict_group。同层冲突按“具体优先”，仍冲突则显式标记，不静默裁决。</p></div>
-      <div class="card reveal"><div class="k">06 / PRIVACY</div><h3>没有内容服务器</h3><p>历史在 SQLite，知识库与 Key 用 DPAPI 加密。原文只发往你选择的模型接口；公开版只有在线激活/续期会连接许可服务器，且只传订单号、随机安装 ID 与激活码。</p></div>
+      <div class="card reveal"><div class="k">06 / PRIVACY</div><h3>没有内容服务器</h3><p>历史在 SQLite，知识库与 Key 用 Windows DPAPI 加密。原文只发往你选择的模型接口；译匠没有内容服务器，也没有许可服务器。</p></div>
     </div>
   </div>
 </section>
 
 <section id="shots">
   <div class="wrap">
-    <div class="sec-head reveal"><span>INTERFACE</span><h2>界面</h2><p>左边原文，右边译文；知识库中的案例与术语可浏览；内置规则只显示名称与结构，正文仅企业版开放。</p></div>
-    <div class="shots">
+    <div class="sec-head reveal"><span>INTERFACE</span><h2>界面</h2><p>左边原文，右边译文；知识库中的规则、案例与术语都可浏览；本档规则全文可见、可改、可删。</p></div>
+    <div class="shots" style="grid-template-columns:1fr">
       <div class="shot reveal"><span class="tag">DESKTOP · MAIN</span><img src="assets/desktop-main.png" alt="译匠桌面端主界面" loading="lazy" /></div>
-      <div class="shot reveal"><span class="tag">ANDROID · HOME</span><img src="assets/android-home.png" alt="译匠 Android 主界面" loading="lazy" /></div>
     </div>
-    <div class="shot-row">
+    <div class="shot-row" style="grid-template-columns:repeat(3,1fr)">
       <div class="shot reveal"><span class="tag">KNOWLEDGE BASE</span><img src="assets/desktop-kb.png" alt="知识库规则树" loading="lazy" /></div>
       <div class="shot reveal"><span class="tag">TERMS</span><img src="assets/desktop-terms.png" alt="术语库" loading="lazy" /></div>
+      <div class="shot reveal"><span class="tag">SETTINGS</span><img src="assets/desktop-settings.png" alt="设置" loading="lazy" /></div>
     </div>
   </div>
 </section>
@@ -268,58 +268,56 @@
   <div class="wrap">
     <div class="sec-head reveal"><span>HOW</span><h2>三步开始</h2></div>
     <div class="steps">
-      <div class="step reveal"><h3>安装</h3><p>Windows 双击 Setup 或解压免安装包；Android 安装 APK。首次启动会创建本机数据目录。</p></div>
+      <div class="step reveal"><h3>安装免费版</h3><p>Windows 双击 Setup 或解压免安装包。首次启动会创建本机数据目录；本体只带 1 条身份卡。</p></div>
       <div class="step reveal"><h3>填一个 Key</h3><p>设置里选服务商，填 OpenAI 兼容地址和 API Key。Key 只存在本机。</p></div>
-      <div class="step reveal"><h3>翻译</h3><p>粘贴原文，选模式与领域。右侧会显示译文、用到的规则、审校问题。</p></div>
+      <div class="step reveal"><h3>导入知识库（可选）</h3><p>购买后获取 169 或 260 知识库 JSON，在「知识库 → 导入」载入；导入后即拥有对应规则、案例和术语。</p></div>
     </div>
   </div>
 </section>
 
 <section id="pricing">
   <div class="wrap">
-    <div class="sec-head reveal"><span>PRICING</span><h2>三个版本</h2><p>公开三档：免费版、轻量版、完整版，后两档按年续费。</p></div>
+    <div class="sec-head reveal"><span>PRICING</span><h2>免费版 + 知识库</h2><p>免费版本体不预装知识库；169 / 260 知识库以文件交付，导入后使用。</p></div>
     <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-      <div class="card reveal"><div class="k">FREE</div><h3>免费版</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥0</p><p>快速 / 标准不限次；前 72 小时严格模式不限次，之后每天 3 次；可改 3 条规则、1 个案例；可用临时术语。</p></div>
-      <div class="card reveal"><div class="k">LITE</div><h3>轻量版</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥49/年</p><p>¥49/年。每天 50 次严格模式；可改 50 条规则、10 个案例、20 条术语。</p></div>
-      <div class="card reveal"><div class="k">COMPLETE</div><h3>完整版</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥89/年</p><p>¥89/年。全功能不限量；激活后一年有效；到期续费。</p></div>
+      <div class="card reveal"><div class="k">FREE</div><h3>免费版</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥0</p><p>全部功能可用；空壳知识库，只保留 1 条最高优先级身份规则。规则/术语/案例可自行导入或新建。</p></div>
+      <div class="card reveal"><div class="k">KB 169</div><h3>169 知识库</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥49/年</p><p>169 条精选规则（A+B+C1）、24 个案例、190 条术语；购买后发送 JSON 文件，在免费版内导入。</p></div>
+      <div class="card reveal"><div class="k">KB 260</div><h3>260 知识库</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥89/年</p><p>260 条全量规则（含 D 分区域）、24 个案例、190 条术语；购买后发送 JSON 文件，在免费版内导入。</p></div>
     </div>
-    <p class="note" style="margin-top:14px">轻量版与完整版均为年费：下载免费版后，在「设置 → 当前版本」输入订单号即可升级，不单独发放安装包。购买入口：下方「下载」区的面包多按钮，或微信搜索【译匠公众号】。</p>
-    <p class="note" style="margin-top:6px;font-size:12px;opacity:.75">企业版不公开销售。如对只经过 API 端、不经过任何其他服务器的版本有需求，请联系译匠公众号。</p>
+    <p class="note" style="margin-top:14px">三档功能完全一致，只差导入的知识库内容。169/260 不再提供单独安装包；购买后由译匠发送知识库文件，导入免费版即可使用。购买入口见下方，或微信搜索【译匠公众号】。</p>
   </div>
 </section>
 
 <section id="download">
   <div class="wrap">
-    <div class="sec-head reveal"><span>DOWNLOAD</span><h2>下载</h2><p>免费版直接下载；轻量版与完整版在免费版内用订单号升级。</p></div>
+    <div class="sec-head reveal"><span>DOWNLOAD</span><h2>下载免费版</h2><p>先装免费版；需要知识库时再导入 169 / 260 的 JSON 文件。</p></div>
     <div class="warn-banner reveal"><span>⚠</span><div><b>未做代码签名：</b>Windows SmartScreen 可能提示“未知发布者”。点「更多信息 → 仍要运行」即可安装；如果浏览器拦截，请允许本次下载。</div></div>
     <div class="dl" style="grid-template-columns:repeat(3,1fr)">
       <div class="card reveal">
         <div class="k">FREE · ¥0</div>
         <h3>免费版</h3>
-        <p>快速/标准不限次；72 小时后严格模式每天 3 次；可改 3 条规则、1 个案例。</p>
-        <div class="meta">Windows 安装包 · Android APK</div>
-        <a class="btn primary" href="https://github.com/Yijiang-git/yijiang/releases/download/v0.2/yijiang-free-setup.exe" download>下载 Windows 版</a>
-        <a class="btn" href="https://github.com/Yijiang-git/yijiang/releases/download/v0.2/yijiang-free.apk" download style="margin-top:8px">下载 Android 版</a>
+        <p>全部功能可用；空壳知识库，仅保留 1 条身份卡。Windows 安装包或免安装 zip。</p>
+        <div class="meta">Windows 10/11</div>
+        <a class="btn primary" href="downloads/译匠-免费版-0.2-Setup.exe" download>下载 Windows 安装包</a>
+        <a class="btn" href="downloads/译匠-免费版-0.2.zip" download style="margin-top:8px">下载免安装 zip</a>
       </div>
       <div class="card reveal">
-        <div class="k">LITE · ¥49/年</div>
-        <h3>轻量版</h3>
-        <p>每天 50 次严格模式；可改 50 条规则、10 个案例、20 条术语。年费，在免费版内输入订单号即升级。</p>
-        <div class="meta">免费版内升级 · 电脑 / 手机通用</div>
-        <a class="btn" href="https://mbd.pub/o/bread/YZaWl5ZyaQ==" target="_blank" rel="noopener">购买轻量版 · ¥49/年</a>
+        <div class="k">KB 169 · ¥49/年</div>
+        <h3>169 知识库文件</h3>
+        <p>169 条规则 + 24 案例 + 190 术语。付款后发送 JSON 文件，在免费版「知识库 → 导入」载入。</p>
+        <div class="meta">知识库文件 · 不含安装包</div>
+        <a class="btn" href="https://mbd.pub/o/bread/YZaWl5ZyaQ==" target="_blank" rel="noopener">购买 169 知识库</a>
       </div>
       <div class="card reveal">
-        <div class="k">COMPLETE · ¥89/年</div>
-        <h3>完整版</h3>
-        <p>年费、全功能不限量；一年有效，在免费版内输入订单号即升级。</p>
-        <div class="meta">免费版内升级 · 电脑 / 手机通用</div>
-        <a class="btn" href="https://mbd.pub/o/bread/YZaWlZ9xZw==" target="_blank" rel="noopener">购买完整版 · ¥89/年</a>
+        <div class="k">KB 260 · ¥89/年</div>
+        <h3>260 知识库文件</h3>
+        <p>260 条规则 + 24 案例 + 190 术语。付款后发送 JSON 文件，在免费版「知识库 → 导入」载入。</p>
+        <div class="meta">知识库文件 · 不含安装包</div>
+        <a class="btn" href="https://mbd.pub/o/bread/YZaWlZ9xZw==" target="_blank" rel="noopener">购买 260 知识库</a>
       </div>
     </div>
-    <p class="note">免费版可直接下载；轻量版与完整版不单独提供安装包，统一在免费版内用订单号升级。购买请点上方的面包多按钮，<b>付款后我们会把「激活订单号」发给你</b>（面包多私信或微信），把它填进「设置 → 当前版本」即可；没收到请联系公众号。</p>
-    <p class="note" style="font-size:12px;opacity:.8">当前版本 v0.2：桌面 2026-11-12 构建；Android versionCode 13；内置知识库 rev 244（259 规则 / 24 案例 / 114 术语）。</p>
-    <p class="note" style="font-size:12px;opacity:.8">说明：为避免规则库被整体提取，公开版（免费/轻量/完整）可以浏览内置规则的编号、名称与父子结构，但正文与例句仅企业版可见；案例、术语与自建规则不受影响。</p>
-    <p class="note" style="font-size:12px;opacity:.8">免费版安装后可直接在「设置 → 当前版本」输入订单号，升级为轻量版 ¥49/年 或完整版 ¥89/年；49/89 均为年费，不是买断。</p>
+    <p class="note">免费版可直接下载。169/260 不单独提供安装包：付款后我们会把知识库 JSON 发给你（面包多私信或微信），在免费版里导入即可；未收到请联系公众号。</p>
+    <p class="note" style="font-size:12px;opacity:.8">当前版本 v0.2：免费版本体 1 条身份卡；169 / 260 知识库分别为 169 / 260 条规则、24 案例、190 术语。</p>
+    <p class="note" style="font-size:12px;opacity:.8">说明：知识库内容随文件交付；导入后规则可查看、修改、删除。功能三档一致，不存在单独的“升级安装包”。</p>
     <p class="note"><a class="btn btn-refund" href="refund.html" target="_blank" rel="noopener">反馈或退款</a>　对购买、使用或退款有疑问，点这里。</p>
   </div>
 </section>
@@ -346,11 +344,11 @@
   <div class="wrap">
     <div class="sec-head reveal"><span>FAQ</span><h2>常见问题</h2></div>
     <details class="reveal"><summary>需要自己准备 API Key 吗？</summary><p>需要。译匠不代充、不代理。任何 OpenAI 兼容的 <code>/chat/completions</code> 接口都可以，DeepSeek、OpenAI、GLM、Kimi、Qwen、硅基流动等。</p></details>
-    <details class="reveal"><summary>免费版有什么限制？</summary><p>快速 / 标准永久免费；首次启动后 72 小时内严格模式不限次，之后每天 3 次；可浏览完整的知识库结构（规则名称、24 个案例、114 条术语，规则正文仅企业版），可新增 3 条规则、1 个案例，术语只能临时使用。额外精修、片段审校、术语导入、知识库导出为付费能力。每天 3 次用完后只锁严格模式，第二天 0 点恢复。</p></details>
+    <details class="reveal"><summary>免费版和付费知识库差在哪？</summary><p>功能没有差别：严格模式、规则/案例/术语数量、精修、审校、导入导出全部一致。免费版本体只有 1 条身份卡；购买 169/260 后得到知识库 JSON，导入后分别拥有 169/260 条规则、24 案例、190 术语。导入的规则可以查看、修改、删除。</p></details>
     <details class="reveal"><summary>买了之后能退吗？</summary><p>数字产品不适用七天无理由退款。如需退款或反馈，请移步微信公众号【译匠公众号】说明问题和原因，或在购买渠道按平台流程申请。详见 <a href="refund.html" target="_blank" rel="noopener">反馈或退款</a>。</p></details>
     <details class="reveal"><summary>为什么安装时被 SmartScreen 拦？</summary><p>测试版没有做代码签名。点“更多信息 → 仍要运行”。正式版会考虑签名。</p></details>
     <details class="reveal"><summary>翻译质量比网页版好吗？</summary><p>不一定每句都更好。译匠的差别在于：它按你指定的规则和术语翻译，能告诉你用了哪条规则、哪里被审校改过。质量的上限仍取决于你配置的模型。</p></details>
-    <details class="reveal"><summary>支持 Mac / iOS 吗？</summary><p>暂不支持。当前是 Windows 与 Android。</p></details>
+    <details class="reveal"><summary>支持 Mac / iOS 吗？</summary><p>暂不支持。当前只提供 Windows 10/11 桌面版。</p></details>
   </div>
 </section>
 
@@ -365,7 +363,6 @@
 <footer>
   <div class="wrap row">
     <span>译匠 · Yijiang v0.2</span>
-    <a href="license.html">许可</a>
     <a href="privacy.html">隐私</a>
     <a href="refund.html" target="_blank" rel="noopener">反馈或退款</a>
     <a href="https://afdian.com/order/create?plan_id=4a42d462d8ed11f18e5f5254001e7c00&product_type=0&remark=&affiliate_code=" target="_blank" rel="noopener">爱发电</a>

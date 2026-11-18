@@ -7,6 +7,9 @@
 *.7z
 *.tar.gz
 !screenshots/*
+!docs/downloads/
+!docs/downloads/*.exe
+!docs/downloads/*.zip
 
 # 构建产物
 dist/
