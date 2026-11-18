@@ -242,7 +242,7 @@
     <div class="grid">
       <div class="card reveal"><div class="k">01 / RETRIEVAL</div><h3>按原文选规则，而不是全塞进去</h3><p>检测文体、领域、触发特征，从 260 条卡里选 10 条：具体触发优先、BM25 相关度排序、同父卡限流。事实、数字、专名永远排在风格之前。</p></div>
       <div class="card reveal"><div class="k">02 / MODES</div><h3>快速 / 标准 / 严格</h3><p>快速只译；标准译后做片段审校；严格再多一轮定点修复。三种路径对应三种成本与确定性，自由切换。</p></div>
-      <div class="card reveal"><div class="k">03 / TERMS</div><h3>术语不是查表，是约束</h3><p>190 条内置术语 + 本次临时术语。Aho–Corasick 多模式匹配，5 万条实测约 4ms/段；命中即锁定译名。</p></div>
+      <div class="card reveal"><div class="k">03 / TERMS</div><h3>术语不是查表，是约束</h3><p>最多 190 条内置术语 + 本次临时术语。Aho–Corasick 多模式匹配，5 万条实测约 4ms/段；命中即锁定译名。</p></div>
       <div class="card reveal"><div class="k">04 / CASES</div><h3>整段案例，学的是处理方式</h3><p>24 个整段参考译例，覆盖文学、诗歌、政经、法律、商务、科技、旅游。只取方法，不要求照抄。</p></div>
       <div class="card reveal"><div class="k">05 / KNOWLEDGE</div><h3>父子卡、方向、阶段、冲突组</h3><p>规则有 scope、stage、direction、trigger、precedence、conflict_group。同层冲突按“具体优先”，仍冲突则显式标记，不静默裁决。</p></div>
       <div class="card reveal"><div class="k">06 / PRIVACY</div><h3>没有内容服务器</h3><p>历史在 SQLite，知识库与 Key 用 Windows DPAPI 加密。原文只发往你选择的模型接口；译匠没有内容服务器，也没有许可服务器。</p></div>
@@ -280,10 +280,10 @@
     <div class="sec-head reveal"><span>PRICING</span><h2>免费版 + 知识库</h2><p>免费版本体不预装知识库；169 / 260 知识库以文件交付，导入后使用。</p></div>
     <div class="grid" style="grid-template-columns:repeat(3,1fr)">
       <div class="card reveal"><div class="k">FREE</div><h3>免费版</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥0</p><p>全部功能可用；空壳知识库，只保留 1 条最高优先级身份规则。规则/术语/案例可自行导入或新建。</p></div>
-      <div class="card reveal"><div class="k">KB 169</div><h3>169 知识库</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥49/年</p><p>169 条精选规则（A+B+C1）、24 个案例、190 条术语；购买后发送 JSON 文件，在免费版内导入。</p></div>
-      <div class="card reveal"><div class="k">KB 260</div><h3>260 知识库</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥89/年</p><p>260 条全量规则（含 D 分区域）、24 个案例、190 条术语；购买后发送 JSON 文件，在免费版内导入。</p></div>
+      <div class="card reveal"><div class="k">KB 169</div><h3>169 知识库</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥9.9/年</p><p>169 条精选规则（A+B+C1）、24 个案例、100 条精选术语；购买后发送 JSON 文件，在免费版内导入。</p></div>
+      <div class="card reveal"><div class="k">KB 260</div><h3>260 知识库</h3><p style="font-size:26px;color:#eef2f6;margin:6px 0">¥19.9/年</p><p>260 条全量规则（含 D 分区域）、24 个案例、190 条术语；购买后发送 JSON 文件，在免费版内导入。</p></div>
     </div>
-    <p class="note" style="margin-top:14px">三档功能完全一致，只差导入的知识库内容。169/260 不再提供单独安装包；购买后由译匠发送知识库文件，导入免费版即可使用。购买入口见下方，或微信搜索【译匠公众号】。</p>
+    <p class="note" style="margin-top:14px">三档功能完全一致，只差导入的知识库内容。169/260 不再提供单独安装包；购买后由译匠发送知识库文件，导入免费版即可使用。知识库下载入口见下方，或微信搜索【译匠公众号】。</p>
   </div>
 </section>
 
@@ -301,22 +301,22 @@
         <a class="btn" href="downloads/译匠-免费版-0.2.zip" download style="margin-top:8px">下载免安装 zip</a>
       </div>
       <div class="card reveal">
-        <div class="k">KB 169 · ¥49/年</div>
+        <div class="k">KB 169 · ¥9.9/年</div>
         <h3>169 知识库文件</h3>
-        <p>169 条规则 + 24 案例 + 190 术语。付款后发送 JSON 文件，在免费版「知识库 → 导入」载入。</p>
+        <p>169 条规则 + 24 案例 + 100 术语。付款后发送 JSON 文件，在免费版「知识库 → 导入」载入。</p>
         <div class="meta">知识库文件 · 不含安装包</div>
-        <a class="btn" href="https://mbd.pub/o/bread/YZaWl5ZyaQ==" target="_blank" rel="noopener">购买 169 知识库</a>
+        <a class="btn" href="https://www.baidu.com" target="_blank" rel="noopener">下载 169 知识库</a>
       </div>
       <div class="card reveal">
-        <div class="k">KB 260 · ¥89/年</div>
+        <div class="k">KB 260 · ¥19.9/年</div>
         <h3>260 知识库文件</h3>
         <p>260 条规则 + 24 案例 + 190 术语。付款后发送 JSON 文件，在免费版「知识库 → 导入」载入。</p>
         <div class="meta">知识库文件 · 不含安装包</div>
-        <a class="btn" href="https://mbd.pub/o/bread/YZaWlZ9xZw==" target="_blank" rel="noopener">购买 260 知识库</a>
+        <a class="btn" href="https://www.baidu.com" target="_blank" rel="noopener">下载 260 知识库</a>
       </div>
     </div>
-    <p class="note">免费版可直接下载。169/260 不单独提供安装包：付款后我们会把知识库 JSON 发给你（面包多私信或微信），在免费版里导入即可；未收到请联系公众号。</p>
-    <p class="note" style="font-size:12px;opacity:.8">当前版本 v0.2：免费版本体 1 条身份卡；169 / 260 知识库分别为 169 / 260 条规则、24 案例、190 术语。</p>
+    <p class="note">免费版可直接下载。169/260 不单独提供安装包：我们会把知识库 JSON 发给你（微信），在免费版里导入即可；未收到请联系公众号。</p>
+    <p class="note" style="font-size:12px;opacity:.8">当前版本 v0.2：免费版本体 1 条身份卡；169 知识库为 169 规则 / 24 案例 / 100 术语，260 知识库为 260 规则 / 24 案例 / 190 术语。</p>
     <p class="note" style="font-size:12px;opacity:.8">说明：知识库内容随文件交付；导入后规则可查看、修改、删除。功能三档一致，不存在单独的“升级安装包”。</p>
     <p class="note"><a class="btn btn-refund" href="refund.html" target="_blank" rel="noopener">反馈或退款</a>　对购买、使用或退款有疑问，点这里。</p>
   </div>
@@ -344,7 +344,7 @@
   <div class="wrap">
     <div class="sec-head reveal"><span>FAQ</span><h2>常见问题</h2></div>
     <details class="reveal"><summary>需要自己准备 API Key 吗？</summary><p>需要。译匠不代充、不代理。任何 OpenAI 兼容的 <code>/chat/completions</code> 接口都可以，DeepSeek、OpenAI、GLM、Kimi、Qwen、硅基流动等。</p></details>
-    <details class="reveal"><summary>免费版和付费知识库差在哪？</summary><p>功能没有差别：严格模式、规则/案例/术语数量、精修、审校、导入导出全部一致。免费版本体只有 1 条身份卡；购买 169/260 后得到知识库 JSON，导入后分别拥有 169/260 条规则、24 案例、190 术语。导入的规则可以查看、修改、删除。</p></details>
+    <details class="reveal"><summary>免费版和付费知识库差在哪？</summary><p>功能没有差别：严格模式、规则/案例/术语数量、精修、审校、导入导出全部一致。免费版本体只有 1 条身份卡；购买 169/260 后得到知识库 JSON，导入后分别拥有 169/260 条规则、24 案例；169 为 100 条术语，260 为 190 条术语。导入的规则可以查看、修改、删除。</p></details>
     <details class="reveal"><summary>买了之后能退吗？</summary><p>数字产品不适用七天无理由退款。如需退款或反馈，请移步微信公众号【译匠公众号】说明问题和原因，或在购买渠道按平台流程申请。详见 <a href="refund.html" target="_blank" rel="noopener">反馈或退款</a>。</p></details>
     <details class="reveal"><summary>为什么安装时被 SmartScreen 拦？</summary><p>测试版没有做代码签名。点“更多信息 → 仍要运行”。正式版会考虑签名。</p></details>
     <details class="reveal"><summary>翻译质量比网页版好吗？</summary><p>不一定每句都更好。译匠的差别在于：它按你指定的规则和术语翻译，能告诉你用了哪条规则、哪里被审校改过。质量的上限仍取决于你配置的模型。</p></details>
