@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>译匠 · 本地翻译工作台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2320231f'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f8f3e8' font-family='serif'%3E%E8%AF%91%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/static/style.css?v=15" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">译</span>
+        <div class="brand-text">
+          <strong>译匠</strong>
+          <span>本地翻译工作台</span>
+        </div>
+      </div>
+
+      <div class="lang-switch" id="langSwitch">
+        <select id="srcLang" aria-label="源语言"></select>
+        <button class="swap" id="swapLang" title="交换语言">⇄</button>
+        <select id="tgtLang" aria-label="目标语言"></select>
+        <span class="lang-status" id="langStatus">可用</span>
+      </div>
+
+      <div class="top-actions">
+        
+        <span class="model-badge" id="modelBadge">deepseek-chat</span>
+        <span class="key-dot" id="keyDot" title="API Key 状态"></span>
+        <button class="ghost" id="kbBtn">知识库 <b id="kbCount">—</b></button>
+        <button class="ghost" id="historyBtn">历史</button>
+        <button class="ghost small" id="openFolderBtn" title="打开译匠本地数据文件夹">打开文件位置</button>
+        <button class="ghost" id="settingsBtn">设置</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="panel source-panel">
+        <div class="panel-head">
+          <div class="panel-title">
+            <span id="sourceTitle">英文原文</span>
+            <span class="muted" id="wordCount">0 词</span>
+          </div>
+          <div class="panel-actions">
+            <button class="mini" id="pasteBtn">粘贴</button>
+            <button class="mini" id="clearBtn">清空</button>
+          </div>
+        </div>
+
+        <div class="lang-notice hidden" id="langNotice">
+          <span class="notice-dot"></span>
+          <span id="langNoticeText">该语言对目前是 UI 占位，知识库与提示词尚未接入。</span>
+        </div>
+
+        <textarea id="source" spellcheck="false" placeholder="把英文原文粘贴到这里。&#10;&#10;标准模式：规则卡 + 1 次翻译 + 1 次片段级审校。"></textarea>
+
+        <div class="source-meta">
+          <div class="detect" id="detect">
+            <span class="detect-item">等待原文</span>
+          </div>
+          <div class="options">
+            <label>模式
+              <select id="mode">
+                <option value="fast">快速（只翻译）</option>
+                <option value="standard" selected>标准（翻译 + 审校）</option>
+                <option value="strict">严格（分析 + 审校 + 修复）</option>
+              </select>
+            </label>
+            <label>读者
+              <select id="reader">
+                <option value="general" selected>普通读者</option>
+                <option value="professional">专业读者</option>
+                <option value="student">学生读者</option>
+                <option value="child">儿童读者</option>
+              </select>
+            </label>
+            <label style="display:none" aria-hidden="true">文体
+              <select id="textType" class="hidden" aria-hidden="true">
+                <option value="auto" selected>自动判断</option>
+                <option value="informative">信息型</option>
+                <option value="expressive">表情型</option>
+                <option value="operative">感染型</option>
+                <option value="mixed">混合型</option>
+              </select>
+            </label>
+            <label>领域
+              <select id="genre">
+                <option value="default" selected>默认（不启用以下领域任何知识库）</option>
+                <option value="political">政经</option>
+                <option value="legal">法律</option>
+                <option value="advertising">广告</option>
+                <option value="business">商务</option>
+                <option value="tech_medical">科技 / 医学</option>
+                <option value="news_media">新闻 / 传媒</option>
+                <option value="audiovisual">影视 / 字幕</option>
+                <option value="tourism">旅游</option>
+                <option value="academic">学术</option>
+                <option value="children">儿童文学</option>
+                <option value="poetry">诗歌</option>
+              </select>
+            </label>
+            <label class="pro-toggle" title="额外精修：使用第二遍模型逐句打磨译文；模型由你在设置中配置">
+              <input type="checkbox" id="quality" /> 额外精修
+            </label>
+          </div>
+        </div>
+
+        <div class="strategy-row">
+          <span class="strategy-end" id="strategyLeft">直译</span>
+          <input type="range" id="strategy" min="-1" max="1" step="1" value="1" />
+          <span class="strategy-end" id="strategyRight">意译</span>
+          <span class="strategy-label" id="strategyLabel">意译</span>
+        </div>
+
+        <div class="glossary-box">
+          <div class="glossary-head">
+            <span>本次术语 <b>仅本次生效，不写入知识库</b></span>
+            <span id="glossaryHint">每行：English = 中文</span>
+          </div>
+          <textarea id="glossary" spellcheck="false" placeholder="例如：KPI = 关键绩效指标&#10;Long Bow Village = 长弓村"></textarea>
+        </div>
+
+        <div class="run-row">
+          <button class="primary" id="translateBtn">
+            <span class="btn-label">开始翻译</span>
+            <span class="spinner hidden" id="runSpinner"></span>
+          </button>
+          <label class="cache-toggle"><input type="checkbox" id="useCache" checked /> 复用本地缓存</label>
+
+        </div>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="panel-head result-head">
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="result">译文</button>
+            <button class="tab" data-tab="review">审校 <span class="tab-badge hidden" id="issueBadge">0</span></button>
+            <button class="tab" data-tab="rules">规则</button>
+            <button class="tab" data-tab="usage">用量</button>
+          </div>
+          <div class="panel-actions">
+            <button class="mini" id="editBtn" disabled>编辑</button>
+            <button class="mini" id="copyBtn" disabled>复制</button>
+            <button class="mini" id="downloadBtn" disabled>下载</button>
+          </div>
+        </div>
+
+        <div class="stream-line hidden" id="streamLine">
+          <span class="pulse"></span>
+          <span id="streamText">准备中…</span>
+        </div>
+
+        <div class="tab-body">
+          <div class="tab-pane active" id="tab-result">
+            <div class="output empty" id="output">
+              <div class="empty-art">文</div>
+              <p>译文会出现在这里。</p>
+              <p class="muted">知识库规则、术语核对、定点审校；改完可直接点「编辑」。</p>
+              <div class="empty-features">
+                <span>内置知识库</span>
+                <span>术语核对</span>
+                <span>定点审校</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab-review">
+            <div class="empty small" id="reviewEmpty">
+              <p>翻译完成后，这里会列出审校发现的硬伤与定点修改。</p>
+            </div>
+            <div id="reviewContent" class="hidden"></div>
+          </div>
+
+          <div class="tab-pane" id="tab-rules">
+            <div id="briefCard" class="brief-card hidden"></div>
+            <div id="caseCard" class="case-card hidden"></div>
+            <div id="rulesList" class="rules-list">
+              <div class="empty small"><p>翻译时会从知识库中挑选 8–10 条规则，并附 3 条以内例句。</p></div>
+            </div>
+            <div id="glossaryWrap" class="glossary-wrap hidden">
+              <h4>本次术语</h4>
+              <div id="glossaryList" class="chips"></div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab-usage">
+            <div class="usage-empty empty small" id="usageEmpty">
+              <p>完成一次翻译后，这里会显示各阶段的 Token 明细。</p>
+            </div>
+            <div id="usageContent" class="usage-content hidden"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span id="footerLeft">本软件内置知识库整理自网上大量公版作品的内容，我们尊重著作权，如权利人认为内容不当，请联系我们处理。本声明不构成对任何第三方权利的许可或放弃。</span>
+      <span class="dot-sep">·</span>
+      <span id="footerTokens" class="footer-tokens">本次尚未产生 Token</span>
+    </footer>
+  </div>
+
+  <!-- 设置 -->
+  <div class="drawer-mask hidden" id="settingsMask"></div>
+  <aside class="drawer hidden" id="settingsDrawer" aria-label="设置">
+    <div class="drawer-head">
+      <div>
+        <h2>设置</h2>
+        <p class="muted">兼容 OpenAI 格式的接口，默认 DeepSeek。</p>
+      </div>
+      <button class="icon-btn" data-close="settingsDrawer">✕</button>
+    </div>
+    <div class="drawer-body">
+      <label class="field">
+        <span>API Key</span>
+        <input id="cfgKey" type="password" autocomplete="off" placeholder="留空表示保留现有 Key" />
+        <small id="keyHint">Key 只写入本机加密存储，不会上传。<br/><b>请千万不要随意泄露您的 API Key；译匠承诺不会泄露您的 API Key，请您务必注意 Key 安全。</b></small>
+      </label>
+      <label class="field">
+        <span>服务商（只用于填入参考地址）</span>
+        <select id="cfgProvider">
+          <option value="deepseek">DeepSeek</option>
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Claude（需 OpenAI 兼容网关）</option>
+          <option value="glm">智谱 GLM</option>
+          <option value="moonshot">月之暗面 Kimi</option>
+          <option value="qwen">阿里通义千问</option>
+          <option value="siliconflow">硅基流动</option>
+          <option value="custom">自定义</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>接口地址（根地址）</span>
+        <input id="cfgBase" type="text" placeholder="https://api.deepseek.com" />
+        <small>只支持 OpenAI 兼容的 /chat/completions 接口；Claude 官方原生接口需通过兼容网关。<br/><b>提供的接口地址仅供参考，如无法连接请前往对应 API 官网查看接口地址和模型名称。</b></small>
+      </label>
+      <div class="field-row">
+        <label class="field"><span>标准模型（可直接输入）</span><input id="cfgModel" type="text" list="modelList" placeholder="deepseek-flash" /></label>
+        <label class="field"><span>额外精修模型（可直接输入）</span><input id="cfgQualityModel" type="text" list="modelList" placeholder="deepseek-pro；留空则关闭额外精修" /></label>
+      </div>
+      <datalist id="modelList"></datalist>
+      <p class="form-note" id="modelHint">下拉项只是常见模型参考，可直接填写任意模型名。</p>
+      <div class="field-row">
+        <label class="field" title="翻译温度：0 更保守稳定，1 更灵活有变化；建议 0.2–0.5。"><span>翻译温度</span><input id="cfgTemp" type="number" step="0.1" min="0" max="1.5" /></label>
+        <label class="field"><span>默认模式</span>
+          <select id="cfgMode"><option value="fast">快速</option><option value="standard">标准</option><option value="strict">严格</option></select>
+        </label>
+      </div>
+      <label class="pro-toggle" style="margin-bottom:10px" title="推理模型（deepseek-flash / deepseek-v4-pro）的思考过程与正文共用输出 token；关掉思考才能保证长文完整返回">
+        <input type="checkbox" id="cfgNoThink" checked /> 关闭思考模式（推荐：长文不丢译文，速度更快）
+      </label>
+      <div class="settings-actions">
+        <button class="primary small" id="saveConfigBtn">保存</button>
+        <button class="ghost small" id="testConfigBtn">测试连接</button>
+        <span class="test-result" id="testResult"></span>
+      </div>
+      <div class="note-box">
+        <strong>当前密钥</strong>
+        <code id="cfgKeyMasked">—</code>
+        <p>Key 只保存在本机 DPAPI 加密文件中；重新安装不会上传。若不想复用，直接填入新 Key 保存即可。</p>
+      </div>
+      <div class="note-box license-box" id="licenseBox">
+        <div class="license-head">
+          <strong>知识库与支持</strong>
+        </div>
+        <p class="license-buy">如果您有需要，可前往订购我们的知识库套餐；我们也欢迎大家自制并分享知识库内容，互相学习、完善译匠。如果可以，也希望大家能把自己觉得好用的规则、术语、案例分享到我们的公众号（微信搜索：译匠公众号），我们会定期更新推送，分享给更多人！</p>
+        <div class="settings-actions">
+          <a class="ghost small" href="https://yijiang-git.github.io/yijiang/refund.html" target="_blank" rel="noopener">反馈或退款</a>
+        </div>
+      </div>
+      <div class="note-box" id="cleanupBox">
+        <strong>清理内存与缓存</strong>
+        <p>清除本机翻译历史、结果缓存和日志文件；不会删除自建规则/术语/案例、设置与 API Key。</p>
+        <div class="settings-actions">
+          <button class="ghost small" id="cleanupBtn">清理缓存与历史</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 历史 -->
+  <div class="drawer-mask hidden" id="historyMask"></div>
+  <aside class="drawer hidden" id="historyDrawer" aria-label="历史">
+    <div class="drawer-head">
+      <div><h2>最近翻译</h2><p class="muted">只保存在本机 SQLite。</p></div>
+      <button class="icon-btn" data-close="historyDrawer">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div class="history-actions"><button class="mini" id="clearHistoryBtn">清空历史</button></div>
+      <div id="historyList" class="history-list"></div>
+    </div>
+  </aside>
+
+  <!-- 知识库工作区 -->
+  <div class="kb-workspace hidden" id="kbWorkspace">
+    <header class="kb-top">
+      <div class="kb-title">
+        <span class="logo small-logo">译</span>
+        <div>
+          <h2>本地知识库</h2>
+          <p><span id="kbRev">rev —</span> · <span id="kbRuleCount">0</span> 条规则 · <span id="kbCaseCount">0</span> 个案例 · <span id="kbTermCount">0</span> 条术语</p>
+        </div>
+      </div>
+      <div class="kb-tabs">
+        <button class="kb-tab active" data-kbtab="rules">规则</button>
+        <button class="kb-tab" data-kbtab="terms">术语</button>
+        <button class="kb-tab" data-kbtab="cases">案例</button>
+        <button class="kb-tab" data-kbtab="backups">备份</button>
+        <button class="kb-tab" data-kbtab="langs">语言包</button>
+      </div>
+      <p id="kbRulesLocked" class="muted hidden" style="margin:8px 0;padding:9px 11px;border:1px solid rgba(127,227,255,.25);border-radius:9px;line-height:1.7">
+        内置规则卡片全文可见；本档规则可直接编辑或删除。案例与术语同样可查看、可编辑。
+      </p>
+      <div class="kb-actions">
+        <button class="mini" id="kbNewBtn">＋ 新增</button>
+        <button class="mini" id="kbImportBtn">导入</button>
+        <button class="mini" id="kbExportBtn">导出</button>
+        <button class="mini" id="kbResetBtn" title="清空自建库并把内置规则恢复为随包基线">恢复出厂设置</button>
+        <button class="icon-btn" id="kbCloseBtn">✕</button>
+        <input type="file" id="kbFileInput" accept=".json,.txt,application/json,text/plain" hidden />
+      </div>
+    </header>
+
+    <div class="kb-layout">
+      <aside class="kb-side">
+        <div class="search-row">
+          <input id="kbSearch" type="search" placeholder="搜规则 / 术语 / 案例…" />
+          <select id="kbFilter" title="筛选启用状态">
+            <option value="all">全部</option>
+            <option value="on">只看启用</option>
+            <option value="off">只看停用</option>
+          </select>
+          <select id="kbDomain" class="hidden" title="按领域筛选案例">
+            <option value="all">全部领域</option>
+            <option value="political">政经</option>
+            <option value="legal">法律</option>
+            <option value="business">商务</option>
+            <option value="tech_medical">科技 / 医学</option>
+            <option value="tourism">旅游</option>
+            <option value="academic">学术</option>
+            <option value="poetry">诗歌</option>
+            <option value="general">文学 / 通用</option>
+          </select>
+        </div>
+        <div class="kb-tree-bar" id="kbTreeBar">
+          <select id="kbKind" title="只看总卡（父卡）或分支卡（子卡）">
+            <option value="all">总卡 + 分支卡</option>
+            <option value="master">只看总卡（父卡）</option>
+            <option value="branch">只看分支卡（子卡）</option>
+          </select>
+          <select id="kbDir" title="只看某个翻译方向">
+            <option value="all">全部方向</option>
+            <option value="both">双向（both）</option>
+            <option value="en-zh">英译汉</option>
+            <option value="zh-en">汉译英</option>
+          </select>
+          <button type="button" class="mini" id="kbExpandAll">展开</button>
+          <button type="button" class="mini" id="kbCollapseAll">收起</button>
+        </div>
+        <div id="kbList" class="kb-list"></div>
+      </aside>
+
+      <main class="kb-main">
+        <div id="kbEmpty" class="kb-empty">
+          <div class="empty-art">库</div>
+          <p>从左侧选择一条记录，或点右上角「新增」。</p>
+          <p class="muted">保存后立即生效，不需要重启或运行 bat。</p>
+        </div>
+
+        <form id="ruleForm" class="kb-form hidden">
+          <div class="kb-form-head">
+            <div><span class="eyebrow">RULE</span><h3 id="ruleFormTitle">编辑规则</h3></div>
+            <div class="kb-form-actions">
+              <button type="button" class="ghost small danger" id="ruleDeleteBtn">删除</button>
+              <button type="submit" class="primary small">保存规则</button>
+            </div>
+          </div>
+          <div class="field-row three" title="总卡（父卡）是一个知识库的总纲，可以有多张；分支卡（子卡）是总卡下的具体规则，必须挂到同一个 KB 的总卡上。翻译时先按原文匹配总卡，再展开它下面的分支卡；总卡本身不会单独被召回。">
+            <label class="field"><span>规则 ID</span><input id="ruleId" required placeholder="KB2-201" /></label>
+            <label class="field" title="知识库是规则的一级分类：内置 KB1–KB15，也可以点下方「新建知识库」增加自定义 KB（16–99）。分支卡必须和父卡在同一个 KB。"><span>所属知识库</span>
+              <select id="ruleKb">
+                <option value="1">KB1 翻译基础与过程</option>
+                <option value="2" selected>KB2 英汉对比与技巧</option>
+                <option value="3">KB3 文本类型</option>
+                <option value="4">KB4 方法与翻译腔</option>
+                <option value="5">KB5 术语与专名</option>
+                <option value="6">KB6 中译英专项</option>
+                <option value="7">KB7 政经</option>
+                <option value="8">KB8 法律</option>
+                <option value="9">KB9 广告/商务</option>
+                <option value="10">KB10 科技/医学</option>
+                <option value="11">KB11 新闻/传媒/影视</option>
+                <option value="12">KB12 旅游</option>
+                <option value="13">KB13 学术</option>
+                <option value="14">KB14 儿童文学</option>
+                <option value="15">KB15 诗歌</option>
+              </select>
+              <button type="button" class="ghost small" id="newKbBtn" style="margin-top:6px">＋ 新建知识库</button>
+            </label>
+            <label class="field" title="数字越大优先级越高；5 级仅保留给最高优先级身份规则">
+              <span>优先级（越大越高）</span>
+              <select id="rulePriority">
+                <option value="1">1 · 低</option>
+                <option value="2" selected>2 · 中</option>
+                <option value="3">3 · 高</option>
+                <option value="5">5 · 最高</option>
+              </select>
+              <small class="field-help">内置规则按原有优先级显示；自建规则可选 1–5。</small>
+            </label>
+          </div>
+          <div class="field-row three">
+            <label class="field" title="总卡（父卡）是知识库的总纲，可以有多张；分支卡（子卡）是总卡下的具体规则，必须选同一 KB 的总卡。"><span>卡类型</span>
+              <select id="ruleCardType">
+                <option value="master">总卡（父卡）</option>
+                <option value="branch">分支卡（子卡）</option>
+              </select>
+              <small class="field-help">分支卡必须挂在同一知识库的总卡下。</small>
+            </label>
+            <label class="field" title="分支卡挂在哪张总卡下面。下拉只显示当前 KB 的总卡；总卡不需要父卡。"><span>父卡（仅分支卡需要）</span>
+              <select id="ruleParent"><option value="">无</option></select>
+              <small class="field-help">只列出当前知识库的总卡。</small>
+            </label>
+            <label class="field"><span>体系说明</span>
+              <div class="field-help" style="margin-top:6px">总卡 = 该知识库的总纲；分支卡 = 总卡下的具体规则。用户新建的规则也会出现在左侧树里。</div>
+            </label>
+          </div>
+          <label class="field"><span>标题</span><input id="ruleTitle" required placeholder="长定语拆分" /></label>
+          <label class="field"><span>原则说明（模型看到的规则卡）</span><textarea id="rulePrinciple" rows="3" required></textarea></label>
+          <label class="field"><span>QA 检查项</span><textarea id="ruleCheck" rows="2"></textarea></label>
+          <div class="field-row">
+            <label class="field" title="触发特征是原文里常见的结构/现象标签，用逗号分隔。例如 long_sentence 长句、passive 被动、nominalization 名词化、proper_noun 专名。命中越多，这条规则越容易被召回。">
+              <span>触发特征（逗号分隔）</span>
+              <input id="ruleTriggers" placeholder="long_sentence, relative_clause" />
+              <small class="field-help">填原文特征标签；用于检索召回。例：long_sentence / passive / proper_noun。</small>
+            </label>
+          </div>
+          <label class="field" title="领域用于主页面“领域（占位）”筛选；留空表示通用。">
+            <span>领域归属</span>
+            <select id="ruleDomain">
+              <option value="">通用</option>
+              <option value="political">政经</option>
+              <option value="legal">法律</option>
+              <option value="advertising">广告</option>
+              <option value="business">商务</option>
+              <option value="tech_medical">科技 / 医学</option>
+              <option value="news_media">新闻 / 传媒</option>
+              <option value="audiovisual">影视 / 字幕</option>
+              <option value="tourism">旅游</option>
+              <option value="academic">学术</option>
+              <option value="children">儿童文学</option>
+              <option value="poetry">诗歌</option>
+            </select>
+            <small class="field-help">规则、术语、案例都可以自由导入与归属。</small>
+          </label>
+          <label class="field"><span>例句，每行：英文 || 中文 || 备注</span><textarea id="ruleExamples" rows="5" placeholder="The teacher answered the students' questions and addressed their concerns. || 老师回答了学生们的问题，消除了他们的担忧。 || 这里用同一个概念对应两个不同宾语，但汉语搭配不同。问题要“回答”，担忧要“消除/回应”。按原则各配动词。"></textarea></label>
+          <div class="field-row three">
+            <label class="field" title="这条规则适用的翻译方向">
+            <span>适用方向</span>
+            <select id="ruleDirection">
+              <option value="both">双向（both）</option>
+              <option value="en-zh">英译汉（en-zh）</option>
+              <option value="zh-en">汉译英（zh-en）</option>
+            </select>
+          </label>
+          <label class="field"><span>来源文件</span><input id="ruleSourceFile" placeholder="手动添加" /></label>
+            <label class="field"><span>章节 / 页码</span><input id="ruleSourceSection" placeholder="切分" /></label>
+            <label class="field"><span>状态</span><select id="ruleEnabled"><option value="1">启用</option><option value="0">停用</option></select></label>
+          </div>
+          <div class="form-note">新手推荐直接在这里点「新建」逐条填写。本档内置规则可直接编辑、删除；自建规则写入独立加密知识库并自动备份。</div>
+        </form>
+
+        <form id="termForm" class="kb-form hidden">
+          <div class="kb-form-head">
+            <div><span class="eyebrow">TERM</span><h3 id="termFormTitle">编辑术语</h3></div>
+            <div class="kb-form-actions">
+              <button type="button" class="ghost small danger" id="termDeleteBtn">删除</button>
+              <button type="submit" class="primary small">保存术语</button>
+            </div>
+          </div>
+          <div class="field-row">
+            <label class="field"><span>英文</span><input id="termEn" required /></label>
+            <label class="field"><span>中文</span><input id="termZh" required /></label>
+          </div>
+          <div class="field-row">
+            <label class="field"><span>来源</span><input id="termSource" placeholder="课程材料 / 手动" /></label>
+            <label class="field"><span>备注</span><input id="termNote" /></label>
+          </div>
+          <div class="field-row">
+            <label class="field"><span>领域归属</span><select id="termDomain"></select></label>
+            <label class="field"><span>状态</span>
+              <select id="termEnabled">
+                <option value="1">启用（翻译时参与匹配）</option>
+                <option value="0">停用（保留但不参与匹配）</option>
+              </select>
+            </label>
+          </div>
+        </form>
+
+        <form id="caseForm" class="kb-form hidden">
+          <div class="kb-form-head">
+            <div><span class="eyebrow">CASE</span><h3 id="caseFormTitle">编辑案例</h3></div>
+            <div class="kb-form-actions">
+              <button type="button" class="ghost small danger" id="caseDeleteBtn">删除</button>
+              <button type="submit" class="primary small">保存案例</button>
+            </div>
+          </div>
+          <div class="field-row three">
+            <label class="field"><span>案例 ID</span><input id="caseId" required placeholder="CASE-09" /></label>
+            <label class="field"><span>文本类型</span>
+              <select id="caseType">
+                <option value="informative">信息型</option>
+                <option value="expressive">表情型</option>
+                <option value="operative">感染型</option>
+                <option value="mixed">混合型</option>
+              </select>
+            </label>
+            <label class="field"><span>标签</span><input id="caseTags" placeholder="tourism, style" /></label>
+          </div>
+          <div class="field-row">
+            <label class="field"><span>语言方向</span>
+              <select id="caseLang">
+                <option value="en-zh">英译中（英文原例 → 中文参考）</option>
+                <option value="zh-en">中译英（中文原例 → 英文参考）</option>
+              </select>
+            </label>
+            <label class="field"><span>领域归属</span><select id="caseDomain"></select></label>
+          </div>
+          <label class="field"><span>标题</span><input id="caseTitle" required /></label>
+          <label class="field"><span>英文原例</span><textarea id="caseEn" rows="3" required></textarea></label>
+          <label class="field"><span>中文参考</span><textarea id="caseZh" rows="3" required></textarea></label>
+          <label class="field"><span>说明</span><textarea id="caseNote" rows="2"></textarea></label>
+          <div class="field-row">
+            <label class="field"><span>来源</span><input id="caseSource" /></label>
+            <label class="field"><span>状态</span><select id="caseEnabled"><option value="1">启用</option><option value="0">停用</option></select></label>
+          </div>
+        </form>
+
+        <div id="backupPane" class="kb-form hidden">
+          <div class="kb-form-head">
+            <div><span class="eyebrow">BACKUP</span><h3>备份与恢复</h3></div>
+            <button class="primary small" id="kbBackupBtn">立即备份</button>
+          </div>
+          <div id="backupList" class="backup-list"></div>
+        </div>
+
+        <div id="langPane" class="kb-form hidden">
+          <div class="kb-form-head"><div><span class="eyebrow">LANG</span><h3>语言包</h3></div></div>
+          <p class="form-note">当前只接入英语 ↔ 汉语；语言选择里的「添加语言」是开发中占位，不会调用模型。</p>
+          <div id="langList" class="lang-list"></div>
+        </div>
+      </main>
+      <div class="kb-refs hidden">
+        <strong>词汇参考</strong>
+        <span>以上词汇只作参考；权威翻译方法可以参照官方网站，推荐一些额外参考网站：</span>
+        <div class="ref-links">
+          <span><b>dictionary.cambridge.org</b> 英式/学习者词典</span>
+          <span><b>oxfordlearnersdictionaries.com</b> 牛津学习词典</span>
+          <span><b>merriam-webster.com</b> 美式词典与用法</span>
+          <span><b>collinsdictionary.com</b> 英英释义与用法</span>
+          <span><b>ldoceonline.com</b> 朗文学习词典</span>
+          <span><b>linguee.com</b> 双语例句对照</span>
+          <span><b>context.reverso.net</b> 语境例句</span>
+          <span><b>ludwig.guru</b> 英语搭配检索</span>
+          <span><b>termonline.cn</b> 中国规范术语</span>
+          <span><b>china.org.cn/chinese/china_key_words</b> 中国关键词</span>
+          <span><b>unterm.un.org</b> 联合国术语库</span>
+          <span><b>iate.europa.eu</b> 欧盟术语库</span>
+          <span><b>english-corpora.org</b> 英语语料库</span>
+          <span><b>poetryfoundation.org</b> 英语诗歌</span>
+          <span><b>gushiwen.cn</b> 中文古诗文</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/static/app.js?v=16"></script>
+</body>
+</html>
+

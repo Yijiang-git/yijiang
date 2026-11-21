@@ -1,0 +1,22 @@
+{
+  "provider": "deepseek",
+  "base_url": "https://api.deepseek.com",
+  "api_key": "",
+  "model": "deepseek-flash",
+  "quality_model": "deepseek-v4-pro",
+  "disable_thinking": true,
+  "temperature": 0.5,
+  "qa_temperature": 0.0,
+  "max_tokens": 8192,
+  "timeout": 180,
+  "default_mode": "standard",
+  "default_reader": "general",
+  "auto_open": true,
+  "port": 8765,
+  "host": "127.0.0.1",
+  "baseline_per_word": 66.3,
+  "baseline_fixed": 0,
+  "max_words_per_chunk": 900,
+  "top_rules": 5,
+  "qa_checks": 10
+}
