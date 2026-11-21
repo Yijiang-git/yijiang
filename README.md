@@ -2,7 +2,7 @@
 
 **开源、免费的 Windows 本地英汉翻译软件：把翻译规矩做成可导入、可编辑的知识库。**
 
-[![Release](https://img.shields.io/badge/release-v0.2-2f6b5e)](../../releases/latest)
+[![Release](https://img.shields.io/badge/release-v0.2-2f6b5e)](https://yijiang-git.github.io/yijiang/)
 [![Windows](https://img.shields.io/badge/Windows-10%2F11%20x64-3d5f7d)](#下载)
 [![License](https://img.shields.io/badge/license-MIT-2f6b5e)](LICENSE)
 
