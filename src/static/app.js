@@ -845,7 +845,7 @@
       if (!pro) el.quality.checked = false;
       el.quality.parentElement.title = pro
         ? "使用设置中的额外精修模型；不限定平台"
-        : "额外精修是轻量版 / 完整版功能";
+        : "额外精修使用设置中的精修模型";
     }
     const exportBtn = $("#kbExportBtn");
     if (exportBtn) {
